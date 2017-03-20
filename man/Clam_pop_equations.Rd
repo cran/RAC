@@ -2,7 +2,7 @@
 % Please edit documentation in R/Clam_pop_equations.R
 \name{Clam_pop_equations}
 \alias{Clam_pop_equations}
-\title{Clam bioenergetic individual model differential equations}
+\title{Clam bioenergetic population model differential equations}
 \usage{
 Clam_pop_equations(Param, Tint, Phy, DT, POCint, POMint, TSSint, Wd)
 }
@@ -27,6 +27,6 @@ Clam_pop_equations(Param, Tint, Phy, DT, POCint, POMint, TSSint, Wd)
 a list containing the clam weights, temperature limitation functions and metabolic rates at time t
 }
 \description{
-Energetic balance for Clam
+Clam bioenergetic population model differential equations
 }
 

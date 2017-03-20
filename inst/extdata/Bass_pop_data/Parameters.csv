@@ -22,4 +22,5 @@ k,Weight exponent for energy content,0.107, - ,Lupatsch et al 2003
 eff,Food ingestion efficiency,0.95, - ,Empirical value provided by the farmers
 ti,Start of the integration,01/11/2010,,
 tf,End of the integration ,30/07/2012,,
-IC,Initial condition,40,,
+IC,Initial condition,40,g,
+CS,Commercial size,450,g,http://www.fao.org/fishery/culturedspecies/Dicentrarchus_labrax/en

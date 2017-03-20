@@ -4,16 +4,18 @@
 \alias{Mussel_ind_post}
 \title{Postprocess the Mussel indivual bioenergetic model results}
 \usage{
-Mussel_ind_post(userpath, output, times, Dates)
+Mussel_ind_post(userpath, output, times, Dates, CS)
 }
 \arguments{
 \item{userpath}{the path where the working folder is located}
 
-\item{output}{the output list of the}
+\item{output}{output list containing the output of the RK solver}
 
 \item{times}{the vector containing informations on integration extremes}
 
 \item{Dates}{the vector containing the date}
+
+\item{CS}{the commercial size of Mussel}
 }
 \value{
 a list containing the weights of the mussel, the excreted CNP, the mussel CNP, temperature limitation functions, metabolic rates, oxygen consumption

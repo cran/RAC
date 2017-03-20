@@ -15,6 +15,6 @@ Mussel_pop_pre(userpath, forcings)
 a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3], particulated organic carbon (POC) concentration [mgC/l] and its characterization in terms of C/P and N/P molar ratios, particulated organic matter (POM) concentration [mgC/l], total suspended solids (TSS) concentration [mg/l]
 }
 \description{
-Preprocesses the data for the bioenergetic balance for Sea Bream
+Mussel bioenergetic population model preprocessor
 }
 

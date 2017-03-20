@@ -1,4 +1,4 @@
-#' Function that runs the montecarlo simulation for the Bream population model
+#' Function that runs the Monte Carlo simulation for the Mussel population model
 #'
 #' @param Param a vector containing model parameters
 #' @param times integration extremes and integration timestep
@@ -64,6 +64,10 @@ Wd=as.matrix(matrix(0,nrow=nruns,ncol=tf))
 W=as.matrix(matrix(0,nrow=nruns,ncol=tf))
 L=as.matrix(matrix(0,nrow=nruns,ncol=tf))
 
+fecC=as.matrix(matrix(0,nrow=nruns,ncol=tf))
+fecN=as.matrix(matrix(0,nrow=nruns,ncol=tf))
+fecP=as.matrix(matrix(0,nrow=nruns,ncol=tf))
+
 psC=as.matrix(matrix(0,nrow=nruns,ncol=tf))
 psN=as.matrix(matrix(0,nrow=nruns,ncol=tf))
 psP=as.matrix(matrix(0,nrow=nruns,ncol=tf))
@@ -99,11 +103,12 @@ for (ii in 1:nruns){
 
   # Extract outputs
   weight=t(output[[1]])
-  fec=output[[2]]
-  comp=output[[3]]
-  Tfun=output[[4]]
-  metab=output[[5]]
-  cons=output[[6]]
+  pfec=output[[2]]
+  fec=output[[3]]
+  comp=output[[4]]
+  Tfun=output[[5]]
+  metab=output[[6]]
+  cons=output[[7]]
 
   # Saves results of each run to compute statistics
   Wb[ii,1:length(weight[,1])]=weight[,1]        # Somatic tissue dry weight [g]
@@ -112,9 +117,13 @@ for (ii in 1:nruns){
   W[ii,1:length(weight[,4])]=weight[,4]         # Mussel weight with shell [g]
   L[ii,1:length(weight[,5])]=weight[,5]         # Mussel length [g]
 
-  psC[ii,1:length(fec[,1])]=fec[,1]        # pseudofecies C production
-  psN[ii,1:length(fec[,2])]=fec[,2]        # pseudofecies N production
-  psP[ii,1:length(fec[,3])]=fec[,3]        # pseudofecies P production
+  psC[ii,1:length(fec[,1])]=pfec[,1]        # pseudofecies C production
+  psN[ii,1:length(fec[,2])]=pfec[,2]        # pseudofecies N production
+  psP[ii,1:length(fec[,3])]=pfec[,3]        # pseudofecies P production
+
+  fecC[ii,1:length(fec[,1])]=fec[,1]        # fecies C production
+  fecN[ii,1:length(fec[,1])]=fec[,2]        # fecies N production
+  fecP[ii,1:length(fec[,1])]=fec[,3]         # fecies P production
 
   Cmyt[ii,1:length(comp[,1])]=comp[,1]        # Mussel C content
   Nmyt[ii,1:length(comp[,2])]=comp[,2]        # Mussel N content
@@ -140,6 +149,10 @@ Wd_stat=rbind(colMeans(Wd), colSds(Wd))
 W_stat=rbind(colMeans(W), colSds(W))
 L_stat=rbind(colMeans(L), colSds(L))
 
+fecC_stat=rbind(colMeans(fecC), colSds(fecC))
+fecN_stat=rbind(colMeans(fecN), colSds(fecN))
+fecP_stat=rbind(colMeans(fecP), colSds(fecP))
+
 psC_stat=rbind(colMeans(psC), colSds(psC))
 psN_stat=rbind(colMeans(psN), colSds(psN))
 psP_stat=rbind(colMeans(psP), colSds(psP))
@@ -153,7 +166,7 @@ C_stat=rbind(colMeans(C), colSds(C))
 
 O2_stat=rbind(colMeans(O2), colSds(O2))
 
-output=list(Wb_stat,R_stat,Wd_stat,W_stat,L_stat,psC_stat,psN_stat,psP_stat,Cmyt_stat,Nmyt_stat,Pmyt_stat,A_stat,C_stat,O2_stat,fgT,frT)
+output=list(Wb_stat,R_stat,Wd_stat,W_stat,L_stat,fecC_stat,fecN_stat,fecP_stat,psC_stat,psN_stat,psP_stat,Cmyt_stat,Nmyt_stat,Pmyt_stat,A_stat,C_stat,O2_stat,fgT,frT)
 return(output)
 
 }

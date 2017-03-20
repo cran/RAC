@@ -2,7 +2,7 @@
 % Please edit documentation in R/Mussel_pop_equations.R
 \name{Mussel_pop_equations}
 \alias{Mussel_pop_equations}
-\title{Bass bioenergetic individual model differential equations}
+\title{Mussel bioenergetic population model differential equations}
 \usage{
 Mussel_pop_equations(Param, N, Tint, Phyint, DTint, POCint, Ccont, Ncont, Pcont,
   POMint, TSSint, Wb, R, t, trip)
@@ -42,6 +42,6 @@ Mussel_pop_equations(Param, N, Tint, Phyint, DTint, POCint, Ccont, Ncont, Pcont,
 the outputs at time t
 }
 \description{
-Energetic balance for Mussel
+Mussel bioenergetic population model differential equations
 }
 

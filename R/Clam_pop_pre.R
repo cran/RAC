@@ -1,6 +1,5 @@
 #' Clam bioenergetic population model preprocessor
 #'
-#' Preprocesses the data for the bioenergetic balance for Sea Bream
 #' @param userpath the path where folder containing model inputs and outputs is located
 #' @param forcings a list containing model forcings
 #' @return a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3], particulated organic carbon (POC) concentration [mgC/l], particulated organic matter (POM) concentration [mgC/l], total suspended solids (TSS) concentration [mg/l]
@@ -37,6 +36,7 @@ Param_matrix=read.csv(paste0(userpath,"/Clam_population/Inputs/Parameters//Param
 Param=as.double(as.matrix(Param_matrix[1:22,3]))     # Vector containing all parameters
 Dates=Param_matrix[24:25,3]                          # Vector containing the starting and ending date of teh simulation
 IC=as.double(as.matrix(Param_matrix[23,3]))          # Initial weight condition
+CS=as.double(as.matrix(Param_matrix[26,3]))                # Commercial size
 
 # Prepare data for ODE solution
 t0=min(as.numeric(as.Date(timeT[1], "%d/%m/%Y")), as.numeric(as.Date(timeChl[1], "%d/%m/%Y")), as.numeric(as.Date(timePOC[1], "%d/%m/%Y")), as.numeric(as.Date(timePOM[1], "%d/%m/%Y")), as.numeric(as.Date(timeTSS[1], "%d/%m/%Y")), as.numeric(as.Date(Dates[1], "%d/%m/%Y"))) # starting minimum starting date for forcings and observations
@@ -99,7 +99,8 @@ cat(paste0(toString(Param_matrix[i,2]), ": ", toString(Param_matrix[i,3]), " " ,
 cat(" \n")
 cat("Integration is performed between ", toString(Dates[1]), " and ", toString(Dates[2]),"\n")
 cat(" \n")
-
+cat('Commercial size is ', toString(CS)," mm")
+cat(" \n")
 
 # Print to screen population characteristics
 
@@ -176,10 +177,10 @@ dev.off()
 # Plot TSS forcing
 TSSintsave=TSSint[ti:tf]
 currentpath=getwd()
-filepath=paste0(userpath,"/Clam_population/Inputs/Forcings_plots//TSS.jpeg")
+filepath=paste0(userpath,"/Clam_population/Inputs/Forcings_plots//TSM.jpeg")
 jpeg(filepath,800,600)
 days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1)
-plot(days, TSSintsave, ylab="TSS (mg/l)", xlab="", xaxt = "n",type="l",cex.lab=1.4)
+plot(days, TSSintsave, ylab="TSM (mg/l)", xlab="", xaxt = "n",type="l",cex.lab=1.4)
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
@@ -205,7 +206,7 @@ labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "mon
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
-output=list(Param, times, Dates, IC, Tint, Phyint, DTint, POCint, POMint, TSSint,N)
+output=list(Param, times, Dates, IC, Tint, Phyint, DTint, POCint, POMint, TSSint,N, CS)
 
 return(output)
 }

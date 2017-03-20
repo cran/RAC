@@ -1,4 +1,4 @@
-#' Function that loads forcings data for Bream individual bioenergetic model and performs the interpolation
+#' Function that loads forcings data for Seabream individual bioenergetic model and performs the interpolation
 #'
 #' @param userpath the path where folder containing model inputs and outputs is located
 #' @return a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees] and feeding rate [g/individual x d]

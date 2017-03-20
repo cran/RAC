@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bream_pop_equations.R
 \name{Bream_pop_equations}
 \alias{Bream_pop_equations}
-\title{Bass bioenergetic individual model differential equations}
+\title{Seabream bioenergetic population model differential equations}
 \usage{
 Bream_pop_equations(Param, N, Temp, G, Food, weight)
 }
@@ -23,6 +23,6 @@ Bream_pop_equations(Param, N, Temp, G, Food, weight)
 model output at time t
 }
 \description{
-Energetic balance for Sea Bream
+Seabream bioenergetic population model differential equations
 }
 

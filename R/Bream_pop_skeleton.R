@@ -1,4 +1,4 @@
-#' Creates the folders structure for Bream population model
+#' Creates the folders structure for Seabream population model
 #'
 #' @param userpath the path where forcing are located
 #' @export

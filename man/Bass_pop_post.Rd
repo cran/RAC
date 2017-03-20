@@ -2,25 +2,27 @@
 % Please edit documentation in R/Bass_pop_post.R
 \name{Bass_pop_post}
 \alias{Bass_pop_post}
-\title{Postprocess the Bass population bioenergetic model results}
+\title{Postprocess the Seabass population bioenergetic model results}
 \usage{
-Bass_pop_post(userpath, output, times, Dates, N)
+Bass_pop_post(userpath, output, times, Dates, N, CS)
 }
 \arguments{
 \item{userpath}{the path where the working folder is located}
 
-\item{output}{the output list of the}
+\item{output}{list containing the output of the RK solver}
 
 \item{times}{the vector containing informations on integration extremes}
 
 \item{Dates}{the vector containing the date}
 
 \item{N}{the number of individuals time series}
+
+\item{CS}{the commercial size of Seabass}
 }
 \value{
 output: a list containing the fish weight, proteines, lipids and carbohydrates wasted or produced with excretions, potential and actual ingestion rates, temperature limitation functions and metabolic rates
 }
 \description{
-Postprocess the Bass population bioenergetic model results
+Postprocess the Seabass population bioenergetic model results
 }
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bass_ind_RKsolver.R
 \name{Bass_ind_RKsolver}
 \alias{Bass_ind_RKsolver}
-\title{Solves the Bass bioenergetic balance with a 4th order Runge Kutta method}
+\title{Solves the Seabass bioenergetic balance with a 4th order Runge Kutta method}
 \usage{
 Bass_ind_RKsolver(Param, Temperature, G, Food, IC, times)
 }
@@ -23,6 +23,6 @@ Bass_ind_RKsolver(Param, Temperature, G, Food, IC, times)
 a list containing the fish weight, proteines, lipids and carbohydrates wasted or produced with excretions, potential and actual ingestion rates, temperature limitation functions and metabolic rates
 }
 \description{
-Solves the Bass bioenergetic balance with a 4th order Runge Kutta method
+Solves the Seabass bioenergetic balance with a 4th order Runge Kutta method
 }
 

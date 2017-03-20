@@ -1,6 +1,4 @@
-#' Bass bioenergetic individual model differential equations
-#'
-#' Energetic balance for Sea Bream
+#' Seabass bioenergetic population model differential equations
 #'
 #' @param Param vector containing all metabolic parameters
 #' @param N the number of individuals at time t

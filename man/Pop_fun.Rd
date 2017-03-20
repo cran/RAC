@@ -11,7 +11,7 @@ Pop_fun(Nseed, mort, manag, times)
 
 \item{mort}{mortality rate}
 
-\item{manag}{list of management actions (seeded7harvested individuals)}
+\item{manag}{list of management actions (seeded/harvested individuals)}
 
 \item{times}{vector containing informations on integration times}
 }

@@ -2,23 +2,25 @@
 % Please edit documentation in R/Bass_ind_post.R
 \name{Bass_ind_post}
 \alias{Bass_ind_post}
-\title{Postprocess the Bass indivual bioenergetic model results}
+\title{Seabass bioenergetic individual model postprocessor}
 \usage{
-Bass_ind_post(userpath, output, times, Dates)
+Bass_ind_post(userpath, output, times, Dates, CS)
 }
 \arguments{
 \item{userpath}{the path where the working folder is located}
 
-\item{output}{the output list of the}
+\item{output}{output list containing the output of the RK solver}
 
 \item{times}{the vector containing informations on integration extremes}
 
 \item{Dates}{the vector containing the date}
+
+\item{CS}{the commercial size of Seabass}
 }
 \value{
 a list containing the fish weight, proteines, lipids and carbohydrates wasted or produced with excretions, potential and actual ingestion rates, temperature limitation functions and metabolic rates
 }
 \description{
-Postprocess the Bass indivual bioenergetic model results
+Seabass bioenergetic individual model postprocessor
 }
 

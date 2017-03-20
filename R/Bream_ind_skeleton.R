@@ -1,4 +1,4 @@
-#' Creates the folders structure for Bream individual bioenergetic model
+#' Creates the folders structure for Seabream individual bioenergetic model
 #'
 #' @param userpath the path where forcing are located
 #' @export

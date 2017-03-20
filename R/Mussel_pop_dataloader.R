@@ -12,16 +12,16 @@
 Mussel_pop_dataloader<-function(userpath) {
 
   # Reads forcing files
-  Ttem=read.csv(paste0(userpath,"/Mussel_individual/Inputs/Forcings//Water_temperature.csv"),sep=",",header=FALSE)          # Reading the temperature time series (daily series) data
-  Chlatem=read.csv(paste0(userpath,"/Mussel_individual/Inputs/Forcings//Chlorophyll_a.csv"),sep=",",header=FALSE)           # Reading the Chlorophyll_a (daily series) data
-  POCtem=read.csv(paste0(userpath,"/Mussel_individual/Inputs/Forcings//POC.csv"),sep=",",header=FALSE)                      # Reading the POC (daily series) data
-  POCchtem=read.csv(paste0(userpath,"/Mussel_individual/Inputs/Forcings//POC_characterization.csv"),sep=",",header=FALSE)   # Reading the POC composition  data
-  POMtem=read.csv(paste0(userpath,"/Mussel_individual/Inputs/Forcings//POM.csv"),sep=",",header=FALSE)                      # Reading the individual POM time series (daily series) data
-  TSMtem=read.csv(paste0(userpath,"/Mussel_individual/Inputs/Forcings//TSM.csv"),sep=",",header=FALSE)                      # Reading the TSM (daily series) data
+  Ttem=read.csv(paste0(userpath,"/Mussel_population/Inputs/Forcings//Water_temperature.csv"),sep=",",header=FALSE)          # Reading the temperature time series (daily series) data
+  Chlatem=read.csv(paste0(userpath,"/Mussel_population/Inputs/Forcings//Chlorophyll_a.csv"),sep=",",header=FALSE)           # Reading the Chlorophyll_a (daily series) data
+  POCtem=read.csv(paste0(userpath,"/Mussel_population/Inputs/Forcings//POC.csv"),sep=",",header=FALSE)                      # Reading the POC (daily series) data
+  POCchtem=read.csv(paste0(userpath,"/Mussel_population/Inputs/Forcings//POC_characterization.csv"),sep=",",header=FALSE)   # Reading the POC composition  data
+  POMtem=read.csv(paste0(userpath,"/Mussel_population/Inputs/Forcings//POM.csv"),sep=",",header=FALSE)                      # Reading the population POM time series (daily series) data
+  TSMtem=read.csv(paste0(userpath,"/Mussel_population/Inputs/Forcings//TSM.csv"),sep=",",header=FALSE)                      # Reading the TSM (daily series) data
 
 
   # Reads integration extremes
-  Param_matrix=read.csv(paste0(userpath,"/Mussel_individual/Inputs/Parameters//Parameters.csv"),sep=",")                    # Reading the matrix containing parameters and their description
+  Param_matrix=read.csv(paste0(userpath,"/Mussel_population/Inputs/Parameters//Parameters.csv"),sep=",")                    # Reading the matrix containing parameters and their description
 
   #Extracts vectors from the forcing files
   Dates=Param_matrix[37:38,3]                          # Vector containing the starting and ending date of teh simulation

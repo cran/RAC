@@ -1,6 +1,4 @@
-#' Clam bioenergetic individual model differential equations - alternative version
-#'
-#' Energetic balance for Clam - alternative version
+#' Clam bioenergetic individual model differential equations (alternative version)
 #'
 #' @param Param a vector containing model parameters
 #' @param Tint the interpolated water temperature at time t

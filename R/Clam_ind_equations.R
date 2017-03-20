@@ -1,7 +1,5 @@
 #' Clam bioenergetic individual model differential equations
 #'
-#' Energetic balance for Clam
-#'
 #' @param Param a vector containing model parameters
 #' @param Tint the interpolated water temperature at time t
 #' @param Phy the interpolated phytoplankton at time t

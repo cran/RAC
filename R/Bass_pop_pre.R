@@ -1,6 +1,5 @@
-#' Bass bioenergetic population model preprocessor
+#' Seabass bioenergetic population model preprocessor
 #'
-#' Preprocesses the data for the bioenergetic balance for Sea Bream
 #' @param userpath the path where folder containing model inputs and outputs is located
 #' @param forcings a list containing model forcings
 #' @return a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees] and feeding rate [g/individual x d]
@@ -32,6 +31,7 @@ Bass_pop_pre<-function(userpath,forcings){
   Param=as.double(as.matrix(Param_matrix[1:21,3]))           # Vector containing all parameters
   Dates=Param_matrix[22:23,3]                                # Vector containing the starting and ending date of the simulation
   IC=as.double(as.matrix(Param_matrix[24,3]))                # Initial weight condition
+  CS=as.double(as.matrix(Param_matrix[25,3]))                # Commercial size
   Food=as.double(as.matrix(Food[,1]))                        # Food composition (Proteins, Lipids, Carbohydrates) data
 
   # Prepare data for ODE solution
@@ -92,9 +92,11 @@ Bass_pop_pre<-function(userpath,forcings){
   cat(toString(Pcont*100),"% proteins\n")
   cat(toString(Lcont*100),"% lipids\n")
   cat(toString(Ccont*100),"% carbohydrates\n")
+  cat(" \n")
+  cat('Commercial size is ', toString(CS)," g")
+  cat(" \n")
 
   # Print to screen population characteristics
-
   cat(" \n")
   cat('The population is simulated by assuming that initial weight and maximum ingestion rate are normally distributed:\n');
   cat(" \n")
@@ -154,6 +156,6 @@ Bass_pop_pre<-function(userpath,forcings){
   axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
   dev.off()
 
-  output=list(Param, Tint, Gint, Food, IC, times, Dates, N)
+  output=list(Param, Tint, Gint, Food, IC, times, Dates, N, CS)
 
 }

@@ -4,18 +4,20 @@
 \alias{Mussel_pop_post}
 \title{Postprocess the Mussel population bioenergetic model results}
 \usage{
-Mussel_pop_post(userpath, output, times, Dates, N)
+Mussel_pop_post(userpath, output, times, Dates, N, CS)
 }
 \arguments{
 \item{userpath}{the path where the working folder is located}
 
-\item{output}{the output list of the}
+\item{output}{output list containing the output of the RK solver}
 
 \item{times}{the vector containing informations on integration extremes}
 
 \item{Dates}{the vector containing the date}
 
 \item{N}{the number of individuals}
+
+\item{CS}{the commercial size of Seabass}
 }
 \value{
 a list containing the weights of the mussel, the excreted CNP, the mussel CNP, temperature limitation functions, metabolic rates, oxygen consumption

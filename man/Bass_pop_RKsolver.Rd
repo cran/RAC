@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bass_pop_RKsolver.R
 \name{Bass_pop_RKsolver}
 \alias{Bass_pop_RKsolver}
-\title{Solves the Bass population bioenergetic balance with a 4th order Runge Kutta method}
+\title{Solves the Seabass population bioenergetic balance with a 4th order Runge Kutta method}
 \usage{
 Bass_pop_RKsolver(Param, Temperature, G, Food, IC, times, N)
 }
@@ -25,6 +25,6 @@ Bass_pop_RKsolver(Param, Temperature, G, Food, IC, times, N)
 a list containing the fish weight, proteines, lipids and carbohydrates wasted or produced with excretions, potential and actual ingestion rates, temperature limitation functions and metabolic rates
 }
 \description{
-Solves the Bass population bioenergetic balance with a 4th order Runge Kutta method
+Solves the Seabass population bioenergetic balance with a 4th order Runge Kutta method
 }
 

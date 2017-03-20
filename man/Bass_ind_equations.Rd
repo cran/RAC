@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bass_ind_equations.R
 \name{Bass_ind_equations}
 \alias{Bass_ind_equations}
-\title{Bass bioenergetic individual model differential equations}
+\title{Seabass bioenergetic individual model differential equations}
 \usage{
 Bass_ind_equations(Param, Temp, G, Food, weight)
 }
@@ -21,6 +21,6 @@ Bass_ind_equations(Param, Temp, G, Food, weight)
 model output at time t
 }
 \description{
-Energetic balance for Sea Bream
+Seabass bioenergetic individual model differential equations
 }
 

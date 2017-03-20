@@ -1,6 +1,4 @@
-#' Mussel bioenergetic population model
-#'
-#' Solves the bioenergetic balance for Clam and simulates a population
+#' Clam bioenergetic population model
 #'
 #' @param userpath the path where the working folder is located
 #' @param forcings a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3], particulated organic carbon (POC) concentration [mgC/l], particulated organic matter (POM) concentration [mgC/l], total suspended solids (TSS) concentration [mg/l]
@@ -53,12 +51,13 @@ POCint=out_pre[[8]]
 POMint=out_pre[[9]]
 TSSint=out_pre[[10]]
 N=out_pre[[11]]
+CS=out_pre[[12]]
 
 # Manages population
 out_RKsolver<-Clam_pop_loop(Param, times, IC, Tint, Phyint, DTint, POCint, POMint, TSSint,N,userpath)
 
 # Post-process data
-out_post<-Clam_pop_post(userpath, out_RKsolver, times, Dates,N)
+out_post<-Clam_pop_post(userpath, out_RKsolver, times, Dates,N,CS)
 
 cat(" ")
 cat("End")

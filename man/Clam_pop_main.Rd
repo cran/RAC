@@ -2,7 +2,7 @@
 % Please edit documentation in R/Clam_pop_main.R
 \name{Clam_pop_main}
 \alias{Clam_pop_main}
-\title{Mussel bioenergetic population model}
+\title{Clam bioenergetic population model}
 \usage{
 Clam_pop_main(userpath, forcings)
 }
@@ -15,6 +15,6 @@ Clam_pop_main(userpath, forcings)
 A list containing model outputs: weights, temperature limitation functions and metabolic rates
 }
 \description{
-Solves the bioenergetic balance for Clam and simulates a population
+Clam bioenergetic population model
 }
 

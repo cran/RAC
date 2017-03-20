@@ -1,9 +1,10 @@
-#' Postprocess the Bass indivual bioenergetic model results
+#' Seabass bioenergetic individual model postprocessor
 #'
 #' @param userpath the path where the working folder is located
-#' @param output the output list of the
+#' @param output output list containing the output of the RK solver
 #' @param times the vector containing informations on integration extremes
 #' @param Dates the vector containing the date
+#' @param CS the commercial size of Seabass
 #'
 #' @return a list containing the fish weight, proteines, lipids and carbohydrates wasted or produced with excretions, potential and actual ingestion rates, temperature limitation functions and metabolic rates
 #'
@@ -12,7 +13,7 @@
 #' @import grDevices graphics utils stats
 #'
 
-Bass_ind_post<-function(userpath,output,times,Dates) {
+Bass_ind_post<-function(userpath,output,times,Dates,CS) {
 
 cat('Data post-processing\n')
 cat('\n')
@@ -38,7 +39,20 @@ ingSave=ing[(ti+1):tf]
 ingveroSave=ingvero[(ti+1):tf]
 TfunSave=Tfun[(ti+1):tf,]
 metabSave=metab[(ti+1):tf,]
-output=list(weightSave,excSave,ingSave,ingveroSave,wstSave,metabSave,TfunSave)
+
+# Days to commercial size
+foo <- function(w,S){which(w>S)[1]}
+arg=as.data.frame(weightSave)
+days <- apply(arg,1,foo,S=CS)
+days_L <- as.data.frame(days)
+NonNAindex <- which(!is.na(days_L))
+if (length(NonNAindex)==0) {
+  daysToSize="Not reaching the commercial size"
+}else{  daysToSize <- min(NonNAindex)
+}
+daysToSize<-as.list(daysToSize)
+
+output=list(weightSave,excSave,ingSave,ingveroSave,wstSave,metabSave,TfunSave,daysToSize)
 
 # Plot results
 days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti) # create a dates vector to plot results
@@ -121,6 +135,9 @@ write.csv(ingSave,filepath)
 
 filepath=paste0(userpath,"/Bass_individual/Outputs/Out_csv//actual_ingestion.csv")
 write.csv(ingveroSave,filepath)
+
+filepath=paste0(userpath,"/Bass_individual/Outputs/Out_csv//Days_to_comercial_size.csv")
+write.csv(daysToSize,filepath)
 
 return(output)
 }

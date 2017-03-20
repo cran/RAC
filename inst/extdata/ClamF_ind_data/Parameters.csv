@@ -11,7 +11,7 @@ b,Dry weight -wet weight allometric coefficient,0.0234, - ,Goulletquer 1989
 m,Anabolism weight exponent,0.6666,-,Ursin 1967
 n,Catabolism weight exponent,1, - ,Ursin 1967
 vf,Maximum filtration rate,2.3,l/d gdw^-q,Solidoro et al 2000
-epsT,Energetic content of Tapes philippinarum,19200,J/gdw,Goulletquer 1989
+epsT,Energetic content of Ruditapes philippinarum,19200,J/gdw,Goulletquer 1989
 epsF,Energetic content of food,4.7,kJ/gChla,Platt and Irwin 1973
 TmaxG,Max temperature for growth,32,°C,Solidoro et al 2000
 ToptG,Optimum temperature for growth,22.7,°C,Solidoro et al 2000
@@ -27,3 +27,4 @@ kap,Clorophyll - C in phytoplankton conversion ratio,8.92,mgChla/gC,Pastres et a
 IC,Wet weight initial condition,0.0029,g,
 ti,start of integration,01/03/2010, - ,
 tf,end of integration,15/06/2012, - ,
+CS,Commercial size,40,mm,http://www.ciesm.org/atlas/Ruditapesphilippinarum.html

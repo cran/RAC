@@ -1,6 +1,4 @@
-#' Bream bioenergetic individual model preprocessor
-#'
-#' Preprocesses the data for the bioenergetic balance for Sea Bream
+#' Seabass bioenergetic individual model preprocessor
 #'
 #' @param userpath the path where folder containing model inputs and outputs is located
 #' @param forcings a list containing model forcings
@@ -32,6 +30,7 @@ Food=read.csv(paste0(userpath,"/Bass_individual/Inputs/Forcings//Food_characteri
 Param=as.double(as.matrix(Param_matrix[1:21,3]))          # Vector containing all parameters
 Dates=Param_matrix[22:23,3]                               # Vector containing the starting and ending date of the simulation
 IC=as.double(as.matrix(Param_matrix[24,3]))               # Initial weight condition
+CS=as.double(as.matrix(Param_matrix[25,3]))                # Commercial size
 Food=as.double(as.matrix(Food[,1]))                       # Food composition (Proteins, Lipids, Carbohydrates) data
 
 # Prepare data for ODE solution
@@ -50,7 +49,7 @@ Ccont=Food[3]       # [-] Percentage of carbohydrates in the food
 
 # Check if forcings are Ok with integration extremes
 if ((ti<as.numeric(as.Date(timeT[1], "%d/%m/%Y")))|ti<as.numeric(as.Date(timeG[1], "%d/%m/%Y"))) {
-  cat("ERROR: forcing are beginning after the specified integration start\n")
+  cat("ERROR: forcings are beginning after the specified integration start\n")
   cat("Impossible to proceed with interpolation\n")
 }
 
@@ -78,11 +77,14 @@ cat("The food has the following composition: \n")
 cat(toString(Pcont*100),"% proteins\n")
 cat(toString(Lcont*100),"% lipids\n")
 cat(toString(Ccont*100),"% carbohydrates\n")
+cat(" \n")
+cat('Commercial size is ', toString(CS)," g")
+cat(" \n")
 
 # Plot to screen inserted forcing functions
 cat(" \n")
 cat("Forcings are represented in graphs available at the following folder\n")
-cat(paste0(userpath,"/Bass_individual/Inputs/Frocings_plots\n"))
+cat(paste0(userpath,"/Bass_individual/Inputs/Forcings_plots\n"))
 
 # Plot Temperature forcing
 Tintsave=Tint[(ti+1):tf]
@@ -106,6 +108,6 @@ labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "mon
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
-output=list(Param, Tint, Gint, Food, IC, times, Dates)
+output=list(Param, Tint, Gint, Food, IC, times, Dates, CS)
 return(output)
 }

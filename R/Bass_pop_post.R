@@ -1,10 +1,11 @@
-#' Postprocess the Bass population bioenergetic model results
+#' Postprocess the Seabass population bioenergetic model results
 #'
 #' @param userpath the path where the working folder is located
-#' @param output the output list of the
+#' @param output list containing the output of the RK solver
 #' @param times the vector containing informations on integration extremes
 #' @param Dates the vector containing the date
 #' @param N the number of individuals time series
+#' @param CS the commercial size of Seabass
 #'
 #' @return output: a list containing the fish weight, proteines, lipids and carbohydrates wasted or produced with excretions, potential and actual ingestion rates, temperature limitation functions and metabolic rates
 #'
@@ -13,7 +14,7 @@
 #' @import grDevices graphics utils stats
 #'
 
-Bass_pop_post<-function(userpath,output,times,Dates,N) {
+Bass_pop_post<-function(userpath,output,times,Dates,N,CS) {
 
   cat('Data post-processing\n')
   cat('\n')
@@ -58,7 +59,45 @@ Bass_pop_post<-function(userpath,output,times,Dates,N) {
 
   N=N[ti:tf]
 
-  output=list(weightSave,PexcSave,LexcSave,CexcSave,ingestionSave,PwstSave,LwstSave,CwstSave,ASave,CSave,fgT,frT,N)
+  # Days to commercial size
+
+  # Lower bound
+  foo <- function(w,S){which(w>S)[1]}
+  arg=as.data.frame(weightSave[,1]-weightSave[,2])
+  days <- apply(arg,1,foo,S=CS)
+  days_L <- as.data.frame(days)
+  NonNAindex <- which(!is.na(days_L))
+  if (length(NonNAindex)==0) {
+    Lb_daysToSize="Not reaching the commercial size"
+  }else{  Lb_daysToSize <- min(NonNAindex)
+  }
+
+  # Mean
+  foo <- function(w,S){which(w>S)[1]}
+  arg=as.data.frame(weightSave[,1])
+  days <- apply(arg,1,foo,S=CS)
+  days_L <- as.data.frame(days)
+  NonNAindex <- which(!is.na(days_L))
+  if (length(NonNAindex)==0) {
+    Mean_daysToSize="Not reaching the commercial size"
+  }else{  Mean_daysToSize <- min(NonNAindex)
+  }
+
+  # Upper bound
+  foo <- function(w,S){which(w>S)[1]}
+  arg=as.data.frame(weightSave[,1]+weightSave[,2])
+  days <- apply(arg,1,foo,S=CS)
+  days_L <- as.data.frame(days)
+  NonNAindex <- which(!is.na(days_L))
+  if (length(NonNAindex)==0) {
+    Ub_daysToSize="Not reaching the commercial size"
+  }else{  Ub_daysToSize <- min(NonNAindex)
+  }
+
+  # List containing days to size
+  daysToSize<-as.list(cbind(Ub_daysToSize,Mean_daysToSize,Lb_daysToSize))
+
+  output=list(weightSave,PexcSave,LexcSave,CexcSave,ingestionSave,PwstSave,LwstSave,CwstSave,ASave,CSave,fgT,frT,N,daysToSize)
 
   # Plot results
   days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1) # create a dates vector to plot results
@@ -221,6 +260,9 @@ Bass_pop_post<-function(userpath,output,times,Dates,N) {
 
   filepath=paste0(userpath,"/Bass_population/Outputs/Out_csv//ing.csv")
   write.csv(ingestionSave,filepath)
+
+  filepath=paste0(userpath,"/Bass_population/Outputs/Out_csv//Days_to_comercial_size.csv")
+  write.csv(daysToSize,filepath)
 
   return(output)
 }

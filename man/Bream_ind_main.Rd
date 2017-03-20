@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bream_ind_main.R
 \name{Bream_ind_main}
 \alias{Bream_ind_main}
-\title{Bream bioenergetic individual model}
+\title{Seabream bioenergetic individual model}
 \usage{
 Bream_ind_main(userpath, forcings)
 }
@@ -12,9 +12,9 @@ Bream_ind_main(userpath, forcings)
 \item{forcings}{a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees] and feeding rate [g/individual x d]}
 }
 \value{
-A list containing model outputs: weight; excreted quantities and quantities to waste, actual and potential ingestion, temperature limitation functions and metabolic rates
+A list containing model outputs: weight, excreted quantities and quantities to waste, actual and potential ingestion, temperature limitation functions and metabolic rates
 }
 \description{
-Solves the bioenergetic balance for Sea Bream
+Seabream bioenergetic individual model
 }
 

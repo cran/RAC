@@ -1,4 +1,4 @@
-#' Solves the Clam bioenergetic balance with a 4th order Runge Kutta method
+#' Solves the Clam bioenergetic balance (alternative version) with a 4th order Runge Kutta method
 #'
 #' @param Param a vector containing model parameters
 #' @param times integration extremes and integration timestep

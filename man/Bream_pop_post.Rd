@@ -4,18 +4,20 @@
 \alias{Bream_pop_post}
 \title{Postprocess the Bream population bioenergetic model results}
 \usage{
-Bream_pop_post(userpath, output, times, Dates, N)
+Bream_pop_post(userpath, output, times, Dates, N, CS)
 }
 \arguments{
 \item{userpath}{the path where the working folder is located}
 
-\item{output}{the output list of the}
+\item{output}{output list containing the output of the RK solver}
 
 \item{times}{the vector containing informations on integration extremes}
 
 \item{Dates}{the vector containing the date}
 
 \item{N}{the number of individuals}
+
+\item{CS}{the commercial size of Seabream}
 }
 \value{
 a list containing the fish weight, proteines, lipids and carbohydrates wasted or produced with excretions, potential and actual ingestion rates, temperature limitation functions and metabolic rates

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bass_pop_loop.R
 \name{Bass_pop_loop}
 \alias{Bass_pop_loop}
-\title{Function that runs the montecarlo simulation for the Bass population model}
+\title{Function that runs the Monte Carlo simulation for the Seabass population model}
 \usage{
 Bass_pop_loop(Param, Tint, Gint, Food, IC, times, N, userpath)
 }
@@ -27,6 +27,6 @@ Bass_pop_loop(Param, Tint, Gint, Food, IC, times, N, userpath)
 a list with RK solver outputs
 }
 \description{
-Function that runs the montecarlo simulation for the Bass population model
+Function that runs the Monte Carlo simulation for the Seabass population model
 }
 

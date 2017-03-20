@@ -2,7 +2,7 @@
 % Please edit documentation in R/Clam_pop_RKsolver.R
 \name{Clam_pop_RKsolver}
 \alias{Clam_pop_RKsolver}
-\title{Solves the Clam bioenergetic balance with a 4th order Runge Kutta method}
+\title{Solves the Clam bioenergetic balance for population with a 4th order Runge Kutta method}
 \usage{
 Clam_pop_RKsolver(Param, times, IC, Tint, Phyint, DTint, POCint, POMint, TSSint)
 }
@@ -29,6 +29,6 @@ Clam_pop_RKsolver(Param, times, IC, Tint, Phyint, DTint, POCint, POMint, TSSint)
 a list containing the clam weights, temperature limitation functions and metabolic rates
 }
 \description{
-Solves the Clam bioenergetic balance with a 4th order Runge Kutta method
+Solves the Clam bioenergetic balance for population with a 4th order Runge Kutta method
 }
 

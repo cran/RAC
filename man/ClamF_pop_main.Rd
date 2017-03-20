@@ -2,7 +2,7 @@
 % Please edit documentation in R/ClamF_pop_main.R
 \name{ClamF_pop_main}
 \alias{ClamF_pop_main}
-\title{Clam bioenergetic population model - alternative version}
+\title{Clam bioenergetic population model (alternative version)}
 \usage{
 ClamF_pop_main(userpath, forcings)
 }
@@ -15,6 +15,6 @@ ClamF_pop_main(userpath, forcings)
 A list containing model outputs: weights, temperature limitation functions and metabolic rates
 }
 \description{
-Solves the bioenergetic balance for Clam and simulates a population
+Clam bioenergetic population model (alternative version)
 }
 

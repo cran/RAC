@@ -1,4 +1,4 @@
-#' Solves the Bream bioenergetic balance with a 4th order Runge Kutta method
+#' Solves the Seabream individual bioenergetic balance with a 4th order Runge Kutta method
 #'
 #' @param Param vector containing all metabolic parameters
 #' @param Temperature water temperature forcing time series

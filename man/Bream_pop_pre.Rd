@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bream_pop_pre.R
 \name{Bream_pop_pre}
 \alias{Bream_pop_pre}
-\title{Bream bioenergetic population model preprocessor}
+\title{Seabream bioenergetic population model preprocessor}
 \usage{
 Bream_pop_pre(userpath, forcings)
 }

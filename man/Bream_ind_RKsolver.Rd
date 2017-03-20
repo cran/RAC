@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bream_ind_RKsolver.R
 \name{Bream_ind_RKsolver}
 \alias{Bream_ind_RKsolver}
-\title{Solves the Bream bioenergetic balance with a 4th order Runge Kutta method}
+\title{Solves the Seabream individual bioenergetic balance with a 4th order Runge Kutta method}
 \usage{
 Bream_ind_RKsolver(Param, Temperature, G, Food, IC, times)
 }
@@ -23,6 +23,6 @@ Bream_ind_RKsolver(Param, Temperature, G, Food, IC, times)
 a list containing the fish weight, proteines, lipids and carbohydrates wasted or produced with excretions, potential and actual ingestion rates, temperature limitation functions and metabolic rates
 }
 \description{
-Solves the Bream bioenergetic balance with a 4th order Runge Kutta method
+Solves the Seabream individual bioenergetic balance with a 4th order Runge Kutta method
 }
 

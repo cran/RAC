@@ -2,7 +2,7 @@
 % Please edit documentation in R/Mussel_pop_RKsolver.R
 \name{Mussel_pop_RKsolver}
 \alias{Mussel_pop_RKsolver}
-\title{Solves the Bream population bioenergetic balance with a 4th order Runge Kutta method}
+\title{Solves the Mussel population bioenergetic balance with a 4th order Runge Kutta method}
 \usage{
 Mussel_pop_RKsolver(Param, times, IC, Tint, Phyint, DTint, POCint, Ccont, Ncont,
   Pcont, POMint, TSSint, N)
@@ -38,6 +38,6 @@ Mussel_pop_RKsolver(Param, times, IC, Tint, Phyint, DTint, POCint, Ccont, Ncont,
 a list containing the weights of the mussel, the excreted CNP, the mussel CNP, temperature limitation functions, metabolic rates, oxygen consumption
 }
 \description{
-Solves the Bream population bioenergetic balance with a 4th order Runge Kutta method
+Solves the Mussel population bioenergetic balance with a 4th order Runge Kutta method
 }
 

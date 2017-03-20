@@ -1,4 +1,4 @@
-#' Solves the Clam bioenergetic balance with a 4th order Runge Kutta method
+#' Solves the Clam bioenergetic balance for population with a 4th order Runge Kutta method
 #'
 #' @param Param a vector containing model parameters
 #' @param times integration extremes and integration timestep
@@ -38,7 +38,7 @@ Clam_pop_RKsolver <- function(Param, times, IC, Tint, Phyint, DTint, POCint, POM
   Ww=as.vector(matrix(0,nrow=ti))          # Initialize vector total dry weight
   Ww[ti]=(weight[ti]/aF)^(1/bF)            # total dry weight initial value [g]
   L=as.vector(matrix(0,nrow=ti))           # Initialize vector length
-  L[ti]=(weight[ti]/a)^b                   # length initial value [mm]
+  L[ti]=(Ww[ti]/a)^b                   # length initial value [mm]
 
 
   # initialize outputs

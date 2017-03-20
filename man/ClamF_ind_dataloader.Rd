@@ -2,7 +2,7 @@
 % Please edit documentation in R/ClamF_ind_dataloader.R
 \name{ClamF_ind_dataloader}
 \alias{ClamF_ind_dataloader}
-\title{Function that loads forcings data for Clam individual bioenergetic model - alternative version and performs the interpolation}
+\title{Function that loads forcings data for Clam individual bioenergetic model (alternative version) and performs the interpolation}
 \usage{
 ClamF_ind_dataloader(userpath)
 }
@@ -13,6 +13,6 @@ ClamF_ind_dataloader(userpath)
 a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3]
 }
 \description{
-Function that loads forcings data for Clam individual bioenergetic model - alternative version and performs the interpolation
+Function that loads forcings data for Clam individual bioenergetic model (alternative version) and performs the interpolation
 }
 

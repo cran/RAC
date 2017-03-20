@@ -2,7 +2,7 @@
 % Please edit documentation in R/Mussel_ind_RKsolver.R
 \name{Mussel_ind_RKsolver}
 \alias{Mussel_ind_RKsolver}
-\title{Function that runs the montecarlo simulation for the Bream population model}
+\title{Solves the Mussel individual bioenergetic balance with a 4th order Runge Kutta method}
 \usage{
 Mussel_ind_RKsolver(Param, times, IC, Tint, Phyint, DTint, POCint, Ccont, Ncont,
   Pcont, POMint, TSSint)
@@ -36,6 +36,6 @@ Mussel_ind_RKsolver(Param, times, IC, Tint, Phyint, DTint, POCint, Ccont, Ncont,
 a list containing the weights of the mussel, the excreted CNP, the mussel CNP, temperature limitation functions, metabolic rates, oxygen consumption
 }
 \description{
-Function that runs the montecarlo simulation for the Bream population model
+Solves the Mussel individual bioenergetic balance with a 4th order Runge Kutta method
 }
 

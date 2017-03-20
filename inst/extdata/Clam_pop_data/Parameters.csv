@@ -1,4 +1,4 @@
-Quabtity,Description,Value,Unit,Reference
+Quantity,Description,Value,Unit,Reference
 epsR,Clam tissue energy content,19200,J/g,Solidoro et al 2000
 epsDT,Energy content of detritus,12.5,J/mgC,Brigolin et al
 epsPhy,Energy content of phytoplankton,23.5,J/mgDW,Brigolin et al
@@ -24,3 +24,4 @@ lambda,Chlorophyll to Phytoplankton conversion factor,50, - ,
 IC,initial condition on weight,0.0029,g,
 ti,start of integration,01/03/2010, - ,
 tf,end of integration,15/06/2012, - ,
+CS,Commercial size,40,mm,http://www.ciesm.org/atlas/Ruditapesphilippinarum.html

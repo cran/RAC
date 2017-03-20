@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bream_pop_dataloader.R
 \name{Bream_pop_dataloader}
 \alias{Bream_pop_dataloader}
-\title{Function that loads forcings data for Bream population model and performs the interpolation}
+\title{Function that loads forcings data for Seabream population model and performs the interpolation}
 \usage{
 Bream_pop_dataloader(userpath)
 }
@@ -13,6 +13,6 @@ Bream_pop_dataloader(userpath)
 a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees] and feeding rate [g/individual x d]
 }
 \description{
-Function that loads forcings data for Bream population model and performs the interpolation
+Function that loads forcings data for Seabream population model and performs the interpolation
 }
 

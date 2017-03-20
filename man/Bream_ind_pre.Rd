@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bream_ind_pre.R
 \name{Bream_ind_pre}
 \alias{Bream_ind_pre}
-\title{Bream bioenergetic individual model preprocessor}
+\title{Seabream bioenergetic individual model preprocessor}
 \usage{
 Bream_ind_pre(userpath, forcings)
 }

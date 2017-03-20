@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bass_ind_skeleton.R
 \name{Bass_ind_skeleton}
 \alias{Bass_ind_skeleton}
-\title{Creates the folders structure for Bass individual bioenergetic model}
+\title{Creates the folders structure for Seabass individual bioenergetic model}
 \usage{
 Bass_ind_skeleton(userpath)
 }
@@ -10,6 +10,6 @@ Bass_ind_skeleton(userpath)
 \item{userpath}{the path where forcing are located}
 }
 \description{
-Creates the folders structure for Bass individual bioenergetic model
+Creates the folders structure for Seabass individual bioenergetic model
 }
 

@@ -58,12 +58,14 @@ Mussel_pop_main<-function(userpath,forcings){
   POMint=out_pre[[12]]
   TSSint=out_pre[[13]]
   N=out_pre[[14]]
+  CS=out_pre[[15]]
+
 
   # Solves ODE
   out_RKsolver<-Mussel_pop_loop(Param, times, IC, Tint, Phyint, DTint, POCint, Ccont, Ncont, Pcont, POMint, TSSint,N,userpath)
 
   # Post-process data
-  out_post<-Mussel_pop_post(userpath, out_RKsolver, times, Dates,N)
+  out_post<-Mussel_pop_post(userpath, out_RKsolver, times, Dates,N,CS)
 
   cat(" ")
   cat("End")

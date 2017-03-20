@@ -1,10 +1,8 @@
-#' Bream bioenergetic individual model
-#'
-#' Solves the bioenergetic balance for Sea Bream
+#' Seabream bioenergetic individual model
 #'
 #' @param userpath the path where the working folder is located
 #' @param forcings a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees] and feeding rate [g/individual x d]
-#' @return A list containing model outputs: weight; excreted quantities and quantities to waste, actual and potential ingestion, temperature limitation functions and metabolic rates
+#' @return A list containing model outputs: weight, excreted quantities and quantities to waste, actual and potential ingestion, temperature limitation functions and metabolic rates
 #' @export
 #'
 #' @import matrixStats plotrix rstudioapi
@@ -49,12 +47,13 @@ Bream_ind_main<-function(userpath,forcings){
   IC=out_pre[[5]]
   times=out_pre[[6]]
   Dates=out_pre[[7]]
+  CS=out_pre[[8]]
 
   # Solves ODE
   out_RKsolver<-Bream_ind_RKsolver(Param, Tint, Gint, Food, IC, times)
 
   # Post-process data
-  out_post<-Bream_ind_post(userpath, out_RKsolver, times, Dates)
+  out_post<-Bream_ind_post(userpath, out_RKsolver, times, Dates, CS)
 
   cat(" ")
   cat("End")

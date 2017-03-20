@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bream_ind_skeleton.R
 \name{Bream_ind_skeleton}
 \alias{Bream_ind_skeleton}
-\title{Creates the folders structure for Bream individual bioenergetic model}
+\title{Creates the folders structure for Seabream individual bioenergetic model}
 \usage{
 Bream_ind_skeleton(userpath)
 }
@@ -10,6 +10,6 @@ Bream_ind_skeleton(userpath)
 \item{userpath}{the path where forcing are located}
 }
 \description{
-Creates the folders structure for Bream individual bioenergetic model
+Creates the folders structure for Seabream individual bioenergetic model
 }
 

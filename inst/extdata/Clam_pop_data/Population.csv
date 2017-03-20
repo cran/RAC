@@ -1,4 +1,4 @@
-Quabtity,Description,Value,Unit,Reference
+Quantity,Description,Value,Unit,Reference
 meanWd,Dry weight average,0.0029,g,
 deltaWd,Dry weight standard deviation,0.001,g,
 Wdlb,Dry weight lower bound,0.0001,g,

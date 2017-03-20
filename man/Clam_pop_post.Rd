@@ -4,18 +4,20 @@
 \alias{Clam_pop_post}
 \title{Postprocess the Clam population bioenergetic model results}
 \usage{
-Clam_pop_post(userpath, output, times, Dates, N)
+Clam_pop_post(userpath, output, times, Dates, N, CS)
 }
 \arguments{
 \item{userpath}{the path where the working folder is located}
 
-\item{output}{the output list of the}
+\item{output}{output list containing the output of the RK solver}
 
 \item{times}{the vector containing informations on integration extremes}
 
 \item{Dates}{the vector containing the date}
 
 \item{N}{the number of individuals}
+
+\item{CS}{the commercial size of Clam}
 }
 \value{
 a list containing the clam weights, temperature limitation functions and metabolic rates

@@ -1,9 +1,10 @@
-#' Postprocess the Clam indivual bioenergetic model results
+#' Postprocess the Clam individual bioenergetic model results
 #'
 #' @param userpath the path where the working folder is located
-#' @param output the output list of the
+#' @param output output list containing the output of the RK solver
 #' @param times the vector containing informations on integration extremes
 #' @param Dates the vector containing the date
+#' @param CS the commercial size of Clam
 #'
 #' @return  a list containing the clam weights, temperature limitation functions and metabolic rates
 #'
@@ -12,7 +13,7 @@
 #' @import grDevices graphics utils stats
 #'
 
-Clam_ind_post<-function(userpath,output,times,Dates) {
+Clam_ind_post<-function(userpath,output,times,Dates, CS) {
 
 cat('Data post-processing\n')
 cat('\n')
@@ -31,7 +32,19 @@ weightSave=weight[(ti:tf),]
 TfunSave=Tfun[ti:tf,]
 metabSave=metab[ti:tf,]
 
-output=list(weightSave,TfunSave,metabSave)
+# Days to commercial size
+foo <- function(w,S){which(w>S)[1]}
+arg=as.data.frame(weightSave[,3])
+days <- apply(arg,1,foo,S=CS)
+days_L <- as.data.frame(days)
+NonNAindex <- which(!is.na(days_L))
+if (length(NonNAindex)==0) {
+  daysToSize="Not reaching the commercial size"
+}else{  daysToSize <- min(NonNAindex)
+}
+daysToSize<-as.list(daysToSize)
+
+output=list(weightSave,TfunSave,metabSave,daysToSize)
 
 # Plot results
 days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1) # create a dates vector to plot results
@@ -78,6 +91,9 @@ dev.off()
 
 filepath=paste0(userpath,"/Clam_individual/Outputs/Out_csv//weight.csv")
 write.csv(weightSave,filepath)
+
+filepath=paste0(userpath,"/Clam_individual/Outputs/Out_csv//Days_to_comercial_size.csv")
+write.csv(daysToSize,filepath)
 
 return(output)
 }

@@ -1,7 +1,5 @@
 #' Mussel bioenergetic individual model differential equations
 #'
-#' Energetic balance for Mussel
-#'
 #' @param Param a vector containing model parameters
 #' @param Tint the interpolated water temperature at time t
 #' @param Phyint the interpolated phytoplankton at time t
@@ -95,20 +93,20 @@ Mussel_ind_equations <- function(Param, Tint, Phyint, DTint, POCint, Ccont, Ncon
 
     CR=(CRmax*fa*Wb^q)                                     # Actual clearance rate [l/d]
     I=(CRmax*fa*Wb^q)*(DTint*epsDT+Phyint*epsPhy)          # Daily ingestion  [J/d]
-    I_P=(CRmax*fa*Wb^q)*(DTint*Pcont+Phyint*Pcont)/1e6     # Daily P ingestion P [kg/d]
-    I_N=(CRmax*fa*Wb^q)*(DTint*Ncont+Phyint*Ncont)/1e6     # Daily N ingestion [kg/d]
-    I_C=(CRmax*fa*Wb^q)*(DTint*Ccont+Phyint*Ccont)/1e6     # Daily C ingestion [kg/d]
+    I_P=(CRmax*fa*Wb^q)*(DTint*Pcont+Phyint*Pcont)/1e3     # Daily P ingestion P [g/d]
+    I_N=(CRmax*fa*Wb^q)*(DTint*Ncont+Phyint*Ncont)/1e3     # Daily N ingestion [g/d]
+    I_C=(CRmax*fa*Wb^q)*(DTint*Ccont+Phyint*Ccont)/1e3     # Daily C ingestion [g/d]
 
     Q=POMint/TSSint       # POM/TSS ratio [-]
     AE=AEmax*Q/(Q+Ks)     # Actual adsorption efficiency [-]
 
     E=I*AE                    # Total absorbed energy [J/d]
-    Ex_C=I_C*(1-AE)           # C escretion [kg/d]
-    Ex_P=Ex_C*PC_Fec          # P excretion [kg/d]
-    Ex_N=Ex_C*NC_Fec          # N excretion [kg/d]
+    Ex_C=I_C*(1-AE)           # C escretion [g/d]
+    Ex_P=Ex_C*PC_Fec          # P excretion [g/d]
+    Ex_N=Ex_C*NC_Fec          # N excretion [g/d]
 
     Aing=(1-alpha)*E          # Daily anabolism [J/d]
-    Epspsf=((DTint/POCint*epsDT)+(Phyint/POCint*epsPhy))/1e3  # Energy content in pseudofecies [J/g]
+    Epspsf=((DTint/POCint*epsDT)+(Phyint/POCint*epsPhy))*1e3  # Energy content in pseudofecies [J/g]
 
 
     # LIMITATION on daily anabolism
@@ -120,9 +118,9 @@ Mussel_ind_equations <- function(Param, Tint, Phyint, DTint, POCint, Ccont, Ncon
       Imass=(CRmax*fa*Wb^q)*(POCint)      # Daily POC ingestion [mg/d]
       ratio=NH4/(Imass*AE*Ncont/1e6)      # Excreted/ingested N [-]
       pseudof = 0.0                       # Pseudofecies production [gC/d]
-      psC = 0.0                           # pseudofecies C content [kgC/d]
-      psN = 0.0                           # pseudofecies N content [kgN/d]
-      psP = 0.0                           # pseudofecies P content [kgP/d]
+      psC = 0.0                           # pseudofecies C content [gC/d]
+      psN = 0.0                           # pseudofecies N content [gN/d]
+      psP = 0.0                           # pseudofecies P content [gP/d]
 
     } else  {
 
@@ -130,9 +128,9 @@ Mussel_ind_equations <- function(Param, Tint, Phyint, DTint, POCint, Ccont, Ncon
       Imass=(CRmax*fa*Wb^q)*(POCint)       # Daily POC ingestion [mg/d]
       ratio=NH4/(Imass*AE*Ncont/1e6)       # Excreted/ingested N [-]
       pseudof = (Aing-A)/Epspsf            # Pseudofecies production [gC/d]
-      psC = pseudof*Ccont/1e3              # pseudofecies C content [kgC/d]
-      psN = pseudof*Ncont/1e3              # pseudofecies N content [kgN/d]
-      psP = pseudof*Pcont/1e3              # pseudofecies P content [kgP/d]
+      psC = pseudof*Ccont             # pseudofecies C content [gC/d]
+      psN = pseudof*Ncont              # pseudofecies N content [gN/d]
+      psP = pseudof*Pcont             # pseudofecies P content [gP/d]
 
     }
 
@@ -156,14 +154,15 @@ Mussel_ind_equations <- function(Param, Tint, Phyint, DTint, POCint, Ccont, Ncon
   Pmyt=(Wd*PcontMyt)    # P content of mussel [g]
 
   # Other outputs of the function
-  fec=cbind(psC, psN, psP)
+  pfec=cbind(psC, psN, psP)
+  fec=cbind(Ex_C, Ex_N, Ex_P)
   cont=cbind(Cmyt,Nmyt,Pmyt)
   tfun=cbind(fa, fc)
   metab=cbind(A, C)
   cons=O2
 
   # Assign outputs to a list
-  output=list(dWb,dR,fec,cont,tfun,metab,cons)
+  output=list(dWb,dR,pfec,fec,cont,tfun,metab,cons)
   return(output) # Mussel_ind_equations output
 
 } # end function

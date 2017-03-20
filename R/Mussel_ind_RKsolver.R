@@ -1,4 +1,4 @@
-#' Function that runs the montecarlo simulation for the Bream population model
+#' Solves the Mussel individual bioenergetic balance with a 4th order Runge Kutta method
 #'
 #' @param Param a vector containing model parameters
 #' @param times integration extremes and integration timestep
@@ -62,7 +62,8 @@ Mussel_ind_RKsolver <- function(Param, times, IC, Tint, Phyint, DTint, POCint, C
   Wtot[ti]=atot*Wd[ti]                       # Mussel total weight (with shell) as a function of dry weight [g]
 
   # initialize output
-  fec=as.matrix(matrix(0,nrow=ti,ncol=3))      # Initialize pseudofecies vector
+  pfec=as.matrix(matrix(0,nrow=ti,ncol=3))      # Initialize pseudofecies vector
+  fec=as.matrix(matrix(0,nrow=ti,ncol=3))      # Initialize fecies vector
   comp=as.matrix(matrix(0,nrow=ti,ncol=3))     # Initialize mytilus composition vector
   tfun=as.matrix(matrix(0,nrow=ti,ncol=2))     # Initialize temperature limitations vector
   metab=as.matrix(matrix(0,nrow=ti,ncol=2))    # Initialize metabolic rates vector
@@ -175,15 +176,17 @@ Mussel_ind_RKsolver <- function(Param, times, IC, Tint, Phyint, DTint, POCint, C
   output<-Mussel_ind_equations(Param, Tapp, PHYapp, DTapp, POCapp, Ccontapp, Ncontapp, Pcontapp, POMapp, TSSapp, Wb[t+timestep], R[t+timestep],t,trip)
 
   # Extracts outputs from the output list
-  fecies=output[[3]]
-  composition=output[[4]]
-  temperaturefun=output[[5]]
-  metabolism=output[[6]]
-  consumption=output[[7]]
+  pseudofecies=output[[3]]
+  fecies=output[[4]]
+  composition=output[[5]]
+  temperaturefun=output[[6]]
+  metabolism=output[[7]]
+  consumption=output[[8]]
 
   # Outputs creation
   weight=rbind(Wb,R,Wd,Wtot,L)
   fec=rbind(fec,fecies)
+  pfec=rbind(pfec,pseudofecies)
   comp=rbind(comp,composition)
   tfun=rbind(tfun,temperaturefun)
   metab=rbind(metab,metabolism)
@@ -191,7 +194,7 @@ Mussel_ind_RKsolver <- function(Param, times, IC, Tint, Phyint, DTint, POCint, C
 
 }  # Close cycle
 
-  output=list(weight,fec,comp,tfun,metab,cons)
+  output=list(weight,pfec,fec,comp,tfun,metab,cons)
   return(output) # Mussel_ind_RKsolver outputs
 
 } # Close function

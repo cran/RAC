@@ -14,8 +14,8 @@ vignette: >
 #1.	Introduction
 
 The RAC package (R package for AcquaCulture) is a tool that allows to simulate the rearing cycle of Mediterrean finfish or shellfish aquaculture farms. The growth of the animal is simulated via a bioenergetics balance and both animal size and impacts, related with farming, are calculated based on environmental forcing time series.
-The RAC package works with sea bass (Dicentrarchus labrax), sea bream (Sparus aurata), clam (Tapes philippinarum) and mussel (Mitilus galloprovincialis) plants. Two different sets of equations are available for clam, with different needs in terms of quantity of forcing. 
-The RAC package solves individual based bioenergetics balance but allows to extend results to population (and therefore plant) scale using a Monte Carlo simulation in which some growth parameters are perturbed to reproduce the dispersion of the population. 
+The RAC package works with European seabass (*Dicentrarchus labrax*), Gilthead seabream (*Sparus aurata*), Manila clam (*Ruditapes philippinarum*) and Mediterranean mussel (*Mytilus galloprovincialis*) farm/s. Two different sets of equations are available for clam, with different needs in terms of quantity of forcing. 
+The RAC package solves individual based bioenergetics balance but allows to extend results to population scale using a Monte Carlo simulation in which some growth parameters are perturbed to reproduce the dispersion of the population. 
 The bioenergetics balance ordinary differential equation (ODE) is solved by a 4th order Runge-Kutta method.
 The equations implemented and the parameters used are described in detail in Brigolin et al. 2009 (mussel), Solidoro et al. 2000 (clam), Pastres et al 2001 (clam), Brigolin et al. 2010 (sea bream), Brigolin et al. 2014 (sea bass and sea bream). 
 A data set for each specie is provided to allow the user to run a simulation by modifying the existing dataset, rather than creating its own.
@@ -27,11 +27,11 @@ A data set for each specie is provided to allow the user to run a simulation by 
 The package works with several linked functions that allows to create a folder on a user defined path, read the inputs located in such folder and load them into R workspace, run the simulation and save textual and graphical outputs. 
 The folder created by the package is structured as follows:
 
--'Species_individual' or 'Species_population' is the main folder and contains all the subfolders; the name of the folder changes based on the species, ex. Bass_individual, Mussel_population.
+- 'Species_individual' or 'Species_population' is the main folder and contains all the subfolders; the name of the folder changes based on the species, *e.g.* Bass_individual, Mussel_population.
 
--'Inputs' contains the model inputs, which can be both parameters or forcing functions and are composed of several .csv files. This folder contains the subfolders: (i) 'Forcings', which, in turn, contains the forcing of the model, (ii) 'Forcings_plots', with the plots of the preprocessed forcing, (iii) 'Parameters', with the .csv file containing the parameters for the model and, only for population models, (iv) 'Population_management', containing the user description of population behavior;
+- 'Inputs' contains the model inputs, which can be both parameters or forcing functions and are composed of several .csv files. This folder contains the subfolders: (i) 'Forcings', which, in turn, contains the forcing of the model, (ii) 'Forcings_plots', with the plots of the preprocessed forcing, (iii) 'Parameters', with the .csv file containing the parameters for the model and, only for population models, (iv) 'Population_management', containing the user description of population management measures;
 
--'Outputs' contains both the model numerical outputs, saved as .csv files in the 'Out_csv' subfolder, and the graphical outputs, saved as .jpeg files in the 'Out_plots' subfolder.
+- 'Outputs' contains both the model numerical outputs, saved as .csv files in the 'Out_csv' subfolder, and the graphical outputs, saved as .jpeg files in the 'Out_plots' subfolder.
 
 ********
 
@@ -75,7 +75,7 @@ The package is organized in order to run the whole code by taping four simple in
 
 i.	The user has to define the userpath, that is the address where the folders will be created and where the script will save the input and the output. Assuming that the user wants to create the folder where to run the package at 'C/User/Path' , the prompt would be:
 
-  userpath <-- 'C/User/Path'
+  userpath <-'C/User/Path'
 
 ii.	The folders, containing input and output, are created in the path saved in userpath taping:
 
@@ -85,18 +85,17 @@ This function copies the files included in the package data directory and put th
 
 iii. Forcing are loaded to the workspace by taping:
 
-Forcings<-- bream_ind_dataloader(userpath)
+forcings<-Bream_ind_dataloader(userpath)
 
 This function takes the input from the userpath, uploads and interpolates them. In the end the input are saved on the workspace as list, thus with structure as follows:
 
-
-
- | [[1]]   |   Date of the first forcing               |
- |-------  | ----------------------------------------  |
- | [[2]]   |  First forcing                            |
- | [[3]]   |  Date of the second forcing               |
- | [[4]]   |    Second forcing                         |
-
+  -------   ---------------------------------------- 
+  [[1]]     Date of the first forcing               
+  [[2]]     First forcing                            
+  [[3]]     Date of the second forcing               
+  [[4]]     Second forcing 
+   .....     .............
+  -------   ----------------------------------------  
 
 
 
@@ -105,7 +104,7 @@ The script executes the dataloader and allows the user to change the input value
 
 iv.	Outputs of the model :
 
-Output<-- bream_ind_main(usepath, forcings)
+output<-Bream_ind_main(userpath, forcings)
 
 It runs the equations at the basis of the model, plots results and saves them on the workspace, as lists or plots, and in the folders on the userpath, as .csv files and jpeg files. One output is saved for each day, starting from the specified integration beginning until the specified integration end.
 
@@ -116,17 +115,17 @@ It runs the equations at the basis of the model, plots results and saves them on
 Each specie has different forcing and parameters, depending on what it need for surviving and growing. The input files must remain csv and user should not change the structure of the files. Format dd/mm/yyyy must be used. All .csv files must be formatted using ";" as separator. This makes it possible to open them with excel. When saving those files with excel, the ";" separator must be selected. Forcing function must start before the integration starts, i.e. the first date reported in the file must precede the specified initial date for the beginning of the integration loop.
 It is important to respect the following units of measure and recommendations:
 
-- Feeding: g/d
+- Feeding: g d^-1^
 
 - Water Temperature: Celsius degrees. 
 
-- Chlorophyll_a: mg/m3
+- Chlorophyll_a: mg m^-3^
 
-- POC: mgC/l --> C/P e N/P as molar ratio
+- POC: mgC l^-1^ --> C/P e N/P as molar ratio
 
-- POM: mgC/l
+- POM: mgC l^-1^
 
-- TSM: mgC/l
+- TSM: mgC l^-1^
 
 - Parameters: units specified in the file. Parameters can be changed, but the values reported in this file are recommended.
 
@@ -140,32 +139,28 @@ Only for population:
 
 #6.	Structure of output
 
-For what concerns Bass and Bream, output are: weight [g], excretions [g/d for individuals or kg/d for population], ingestion [g/d], waste [g/d], temperature limitation function, metabolic rate [J/d] and, only for population, individuals. The files 'Weight.csv', 'actual_ingestion.csv' and 'potential_ingestion.csv' have only one column with the output of the model. The other two files, 'excretion.csv' and 'waste.csv', contains three columns, one for lipid, one for proteins and one for carbohydrates.  The plot files are 'excretion.jpg', 'ingestion.jpg', 'metabolism.jpg', 'T_limitation.jpg', 'waste.jpg', 'individuals.jpg' and 'weight.jpg'. 
+For what concerns Bass and Bream, output are: weight [g], excretions [g d^-1^ for individuals or kg/d for population], ingestion [g d^-1^], waste [g/d], temperature limitation function, metabolic rate [J d^-1^] and, only for population, individuals. The files 'Weight.csv', 'actual_ingestion.csv' and 'potential_ingestion.csv' have only one column with the output of the model. The other two files, 'excretion.csv' and 'waste.csv', contains three columns, one for lipid, one for proteins and one for carbohydrates.  The plot files are 'excretion.jpg', 'ingestion.jpg', 'metabolism.jpg', 'T_limitation.jpg', 'waste.jpg', 'individuals.jpg' and 'weight.jpg'. 
 
-For what concerns mussel, output are: weight [g], length [cm], pseudofecies [Kg/d], metabolic rate [J/d], CNP content in the animal and in the faeces [g], temperature limitation function, O2consumption [g/d] and, only for population, individuals. The file 'Weight.csv' contains the output of dry weight, somatic tissue dry weight, gonadic tissue dry weight, total weight and length. The file 'CNPcontent.csv' and 'pseudofecies.csv' contain three columns, one for carbon, one for nitrogen and one for phosphorous.  The file 'O2consumption.csv' have only one column with the output of the model. 
-The plot files are 'composition.jpg', 'dryweight.jpg', 'metabolism.jpg', 'T_limitation.jpg', 'length.jpg', 'individuals.jpg', 'pseudofecies.jpg' and 'O2consumption.jpg'.  
+For what concerns mussel, output are: weight [g], length [cm], pseudofaeces [Kg d^-1^], metabolic rate [J d^-1^], CNP content in the animal, in the faeces [g d^-1^] and in the pseudofaeces [g d^-1^], temperature limitation function, O2 consumption [g d^-1^] and, only for population, individuals. The file 'Weight.csv' contains the output of dry weight, somatic tissue dry weight, gonadic tissue dry weight, total weight and length. The file 'CNPcontent.csv' and 'pseudofaeces.csv' contain three columns, one for carbon, one for nitrogen and one for phosphorous.  The file 'O2consumption.csv' have only one column with the output of the model. 
+The plot files are 'composition.jpg', 'dryweight.jpg', 'metabolism.jpg', 'T_limitation.jpg', 'length.jpg', 'individuals.jpg', 'pseudofaeces.jpg' and 'O2consumption.jpg'.  
 
-For what concerns clams, output are: weight [g], temperature limitation function, metabolic rate [J/d], length [mm] and, only for population, individuals. The file 'Weight.csv' contains the output of wet weight, total weight and length. The plot files are 'wetweight.jpg', 'metabolism.jpg', 'T_limitation.jpg', 'individuals.jpg' and 'length.jpg'.
+For what concerns clams, output are: weight [g], temperature limitation function, metabolic rate [J d^-1^], length [mm] and, only for population, individuals. The file 'Weight.csv' contains the output of wet weight, total weight and length. The plot files are 'wetweight.jpg', 'metabolism.jpg', 'T_limitation.jpg', 'individuals.jpg' and 'length.jpg'.
 
-
-
-
-
-
+For all species, the days needed to reach the commercial size are computed.
 
 ********
 
 #7.	References
 
-Brigolin D. Gabriele Dal Maschio, Federico Rampazzo, Michele Giani, Roberto Pastres. An individual-based population dynamic model for estimating biomass yield and nutrient fluxes through an off-shore mussel (Mytilus galloprovincialis) farm Estuarine, Coastal and Shelf Science 82 (2009) 365-376.
+Brigolin D, Dal Maschio G, Rampazzo F, Giani M,  Pastres R. (2009) An individual-based population dynamic model for estimating biomass yield and nutrient fluxes through an off-shore mussel (*Mytilus galloprovincialis*) farm Estuarine, Coastal and Shelf Science 82 (2009) 365-376.
 
 Brigolin D, Pastres R, Tomassetti P, Porrello S (2010) Modelling the biomass yield and the impact of seabream mariculture in the Adriatic and Tyrrhenian Seas (Italy). Aquacult Intern 18:149-163.
 
 Brigolin D, Meccia VL, Venier C, Tomassetti P, Porrello S, Pastres R (2014) Modelling biogeochemical fluxes across a Mediterranean fish cage farm. Aquac Environ Interact 5(1):71-88.
 
-Pastres, R., Solidoro, C., Cossarini, G., Melaku Canu, D., Dejak, C., 2001. Managing the rearing of Tapes philippinarum in the lagoon of Venice: a decision support system. Ecol. Model. 138, 231-245.
+Pastres R, Solidoro C, Cossarini G, Melaku Canu D, Dejak C, (2001). Managing the rearing of *Tapes philippinarum* in the lagoon of Venice: a decision support system. Ecol. Model. 138, 231-245.
 
-Solidoro C, Pastres R, Melaku Canu D, Pellizzato M, Rossi R (2000) Modelling the growth of Tapes philippinarum in the northern Adriatic lagoons. Mar Ecol Prog Ser 199:137-148.
+Solidoro C, Pastres R, Melaku Canu D, Pellizzato M, Rossi R (2000) Modelling the growth of *Tapes philippinarum* in the northern Adriatic lagoons. Mar Ecol Prog Ser 199:137-148.
 
 
 

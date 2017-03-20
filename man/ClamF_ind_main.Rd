@@ -2,7 +2,7 @@
 % Please edit documentation in R/ClamF_ind_main.R
 \name{ClamF_ind_main}
 \alias{ClamF_ind_main}
-\title{Clam bioenergetic individual model - alternative version}
+\title{Clam bioenergetic individual model (alternative version)}
 \usage{
 ClamF_ind_main(userpath, forcings)
 }
@@ -15,6 +15,6 @@ ClamF_ind_main(userpath, forcings)
 A list containing model outputs: weights, temperature limitation functions and metabolic rates
 }
 \description{
-Solves the bioenergetic balance for Clam
+Clam bioenergetic individual model (alternative version)
 }
 

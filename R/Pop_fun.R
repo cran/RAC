@@ -2,7 +2,7 @@
 #'
 #' @param Nseed number of seeded individuals
 #' @param mort mortality rate
-#' @param manag list of management actions (seeded7harvested individuals)
+#' @param manag list of management actions (seeded/harvested individuals)
 #' @param times vector containing informations on integration times
 #' @return a time series with the number of individuals
 #'

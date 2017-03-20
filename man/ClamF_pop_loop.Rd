@@ -2,7 +2,7 @@
 % Please edit documentation in R/ClamF_pop_loop.R
 \name{ClamF_pop_loop}
 \alias{ClamF_pop_loop}
-\title{Function that runs the montecarlo simulation for the Clam population model - alternative version}
+\title{Function that runs the Monte Carlo simulation for the Clam population model (alternative version)}
 \usage{
 ClamF_pop_loop(Param, times, IC, Tint, Chlint, N, userpath)
 }
@@ -25,6 +25,6 @@ ClamF_pop_loop(Param, times, IC, Tint, Chlint, N, userpath)
 a list with RK solver outputs
 }
 \description{
-Function that runs the montecarlo simulation for the Clam population model - alternative version
+Function that runs the Monte Carlo simulation for the Clam population model (alternative version)
 }
 

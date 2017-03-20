@@ -1,4 +1,4 @@
-Quabtity,Description,Value,Unit,Reference
+Quantity,Description,Value,Unit,Reference
 epsR,Somatic tissue energy content,28302,J/g,
 epsB,Gonadic tissue energy content,20893,J/g,
 epsDT,Energy content of detritus,12.5,J/mgC,
@@ -38,3 +38,4 @@ gamma,weight exponent for anabolism limitation,0.67, - ,
 ti,starting of integration,15/06/2010,,
 tf,end of integration,19/04/2011,,
 IC,initial weight ,0.0014,g,
+CS,Commercial size,5,cm,

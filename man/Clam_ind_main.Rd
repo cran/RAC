@@ -15,6 +15,6 @@ Clam_ind_main(userpath, forcings)
 A list containing model outputs: weights, temperature limitation functions and metabolic rates
 }
 \description{
-Solves the bioenergetic balance for Clam
+Clam bioenergetic individual model
 }
 

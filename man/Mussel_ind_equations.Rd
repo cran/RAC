@@ -40,6 +40,6 @@ Mussel_ind_equations(Param, Tint, Phyint, DTint, POCint, Ccont, Ncont, Pcont,
 the outputs at time t
 }
 \description{
-Energetic balance for Mussel
+Mussel bioenergetic individual model differential equations
 }
 

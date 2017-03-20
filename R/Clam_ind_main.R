@@ -1,7 +1,5 @@
 #' Clam bioenergetic individual model
 #'
-#' Solves the bioenergetic balance for Clam
-#'
 #' @param userpath the path where the working folder is located
 #' @param forcings a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3], particulated organic carbon (POC) concentration [mgC/l], particulated organic matter (POM) concentration [mgC/l], total suspended solids (TSS) concentration [mg/l]
 #' @return A list containing model outputs: weights, temperature limitation functions and metabolic rates
@@ -52,12 +50,13 @@ DTint=out_pre[[7]]
 POCint=out_pre[[8]]
 POMint=out_pre[[9]]
 TSSint=out_pre[[10]]
+CS=out_pre[[11]]
 
 # Solves ODE
 output<-clam_ind_RKsolver(Param, times, IC, Tint, Phyint, DTint, POCint, POMint, TSSint)
 
 # Post-process data
-out_post<-Clam_ind_post(userpath, output, times, Dates)
+out_post<-Clam_ind_post(userpath, output, times, Dates,CS)
 
 cat(" ")
 cat("End")

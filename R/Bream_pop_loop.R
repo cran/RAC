@@ -1,4 +1,4 @@
-#' Function that runs the montecarlo simulation for the Bream population model
+#' Function that runs the Monte Carlo simulation for the Seabream population model
 #'
 #' @param Param a vector containing model parameters
 #' @param Tint the interpolated water temperature time series

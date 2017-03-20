@@ -1,4 +1,4 @@
-#' Bream bioenergetic individual model preprocessor
+#' Seabream bioenergetic individual model preprocessor
 #'
 #' Preprocesses the data for the bioenergetic balance for Sea Bream
 #' @param userpath the path where folder containing model inputs and outputs is located
@@ -32,6 +32,7 @@ Food=read.csv(paste0(userpath,"/Bream_individual/Inputs/Forcings//Food_character
 Param=as.double(as.matrix(Param_matrix[1:21,3]))           # Vector containing all parameters
 Dates=Param_matrix[22:23,3]                                # Vector containing the starting and ending date of the simulation
 IC=as.double(as.matrix(Param_matrix[24,3]))                # Initial weight condition
+CS=as.double(as.matrix(Param_matrix[25,3]))                # Commercial size
 Food=as.double(as.matrix(Food[,1]))                        # Food composition (Proteins, Lipids, Carbohydrates) data
 
 # Prepare data for ODE solution
@@ -57,6 +58,7 @@ for (i in 2:21){
 cat(paste0(toString(Param_matrix[i,2]), ": ", toString(Param_matrix[i,3]), " " ,toString(Param_matrix[i,4])),"\n")
 }
 
+
 cat(" \n")
 cat('Weight initial condition is: ', toString(IC)," g\n")
 cat(" \n")
@@ -66,6 +68,9 @@ cat("The food has the following composition: \n")
 cat(toString(Pcont*100),"% proteins\n")
 cat(toString(Lcont*100),"% lipids\n")
 cat(toString(Ccont*100),"% carbohydrates\n")
+cat(" \n")
+cat('Commercial size is ', toString(CS)," g")
+cat(" \n")
 
 # Plot to screen inserted forcing functions
 cat(" \n")
@@ -92,6 +97,6 @@ labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "mon
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
-output=list(Param, Tint, Gint, Food, IC, times, Dates)
+output=list(Param, Tint, Gint, Food, IC, times, Dates, CS)
 return(output)
 }

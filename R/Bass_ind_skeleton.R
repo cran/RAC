@@ -1,4 +1,4 @@
-#' Creates the folders structure for Bass individual bioenergetic model
+#' Creates the folders structure for Seabass individual bioenergetic model
 #'
 #' @param userpath the path where forcing are located
 #' @export

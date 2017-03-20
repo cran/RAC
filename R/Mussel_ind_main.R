@@ -4,7 +4,7 @@
 #'
 #' @param userpath the path where the working folder is located
 #' @param forcings a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3], particulated organic carbon (POC) concentration [mgC/l] and its characterization in terms of C/P and N/P molar ratios, particulated organic matter (POM) concentration [mgC/l], total suspended solids (TSS) concentration [mg/l]
-#' @return A list containing model outputs: weight, length mussel CNP, pseudofecies CNP production, temperature limitation functions, metabolic rates and oxygen consumption
+#' @return A list containing model outputs: weight, length mussel CNP, pseudofaeces CNP production, faeces CNP production, temperature limitation functions, metabolic rates and oxygen consumption
 #' @export
 #'
 #' @import matrixStats plotrix rstudioapi
@@ -55,12 +55,13 @@ Ncont=out_pre[[10]]
 Pcont=out_pre[[11]]
 POMint=out_pre[[12]]
 TSSint=out_pre[[13]]
+CS=out_pre[[14]]
 
 # Solves ODE
 out_RKsolver<-Mussel_ind_RKsolver(Param, times, IC, Tint, Phyint, DTint, POCint, Ccont, Ncont, Pcont, POMint, TSSint)
 
 # Post-process data
-out_post<-Mussel_ind_post(userpath, out_RKsolver, times, Dates)
+out_post<-Mussel_ind_post(userpath, out_RKsolver, times, Dates,CS)
 
 cat(" ")
 cat("End")

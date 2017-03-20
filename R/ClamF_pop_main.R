@@ -1,6 +1,4 @@
-#' Clam bioenergetic population model - alternative version
-#'
-#' Solves the bioenergetic balance for Clam and simulates a population
+#' Clam bioenergetic population model (alternative version)
 #'
 #' @param userpath the path where the working folder is located
 #' @param forcings a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3]
@@ -49,12 +47,13 @@ IC=out_pre[[4]]
 Tint=out_pre[[5]]
 Chlint=out_pre[[6]]
 N=out_pre[[7]]
+CS=out_pre[[8]]
 
 # Manages population
 out_RKsolver<-ClamF_pop_loop(Param, times, IC, Tint, Chlint,N,userpath)
 
 # Post-process data
-out_post<-ClamF_pop_post(userpath, out_RKsolver, times, Dates,N)
+out_post<-ClamF_pop_post(userpath, out_RKsolver, times, Dates,N,CS)
 
 cat(" ")
 cat("End")

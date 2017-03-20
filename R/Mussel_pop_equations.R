@@ -1,6 +1,4 @@
-#' Bass bioenergetic individual model differential equations
-#'
-#' Energetic balance for Mussel
+#' Mussel bioenergetic population model differential equations
 #'
 #' @param Param a vector containing model parameters
 #' @param N the number of individuals at time t
@@ -110,7 +108,7 @@ Mussel_pop_equations <- function(Param, N, Tint, Phyint, DTint, POCint, Ccont, N
     Ex_N=Ex_C*NC_Fec          # N excretion [kg/d]
 
     Aing=(1-alpha)*E              # Daily anabolism [J/d]
-    Epspsf=((DTint/POCint*epsDT)+(Phyint/POCint*epsPhy))/1e3  # Energy content in pseudofecies [J/g]
+    Epspsf=((DTint/POCint*epsDT)+(Phyint/POCint*epsPhy))*1e3  # Energy content in pseudofecies [J/g]
 
 
     # LIMITATION on daily anabolism
@@ -159,14 +157,15 @@ Mussel_pop_equations <- function(Param, N, Tint, Phyint, DTint, POCint, Ccont, N
   Pmyt=(Wd*PcontMyt*N)/1e3    # P content of mussel [kg]
 
   # Other outputs of the function
-  fec=cbind(psC, psN, psP)
+  pfec=cbind(psC, psN, psP)
+  fec=cbind(Ex_C, Ex_N, Ex_P)
   cont=cbind(Cmyt,Nmyt,Pmyt)
   tfun=cbind(fa, fc)
   metab=cbind(A, C)
   cons=O2
 
   # Assign outputs to a list
-  output=list(dWb,dR,fec,cont,tfun,metab,cons)
+  output=list(dWb,dR,pfec,fec,cont,tfun,metab,cons)
   return(output)
 
 } # end function

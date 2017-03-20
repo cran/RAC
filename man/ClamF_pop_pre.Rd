@@ -2,7 +2,7 @@
 % Please edit documentation in R/ClamF_pop_pre.R
 \name{ClamF_pop_pre}
 \alias{ClamF_pop_pre}
-\title{Clam bioenergetic population model preprocessor}
+\title{Clam bioenergetic population model (alternative version) preprocessor}
 \usage{
 ClamF_pop_pre(userpath, forcings)
 }
@@ -15,6 +15,6 @@ ClamF_pop_pre(userpath, forcings)
 a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3]
 }
 \description{
-Preprocesses the data for the bioenergetic balance for Sea Bream
+Clam bioenergetic population model (alternative version) preprocessor
 }
 

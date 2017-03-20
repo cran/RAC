@@ -1,6 +1,4 @@
-#' Bass bioenergetic individual model differential equations
-#'
-#' Energetic balance for Sea Bream
+#' Seabass bioenergetic individual model differential equations
 #'
 #' @param Param vector containing all metabolic parameters
 #' @param Temp water temperature forcing at time t

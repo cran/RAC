@@ -1,4 +1,4 @@
-#' Function that runs the montecarlo simulation for the Clam population model - alternative version
+#' Function that runs the Monte Carlo simulation for the Clam population model (alternative version)
 #'
 #' @param Param a vector containing model parameters
 #' @param times integration extremes and integration timestep

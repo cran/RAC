@@ -1,4 +1,4 @@
-#' Creates the folders structure for Bass population model
+#' Creates the folders structure for Seabass population model
 #'
 #' @param userpath the path where forcing are located
 #' @export

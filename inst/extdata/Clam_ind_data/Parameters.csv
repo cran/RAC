@@ -24,3 +24,4 @@ lambda,Chlorophyll to Phytoplankton conversion factor,50, - ,
 IC,initial condition on weight,0.0029,g,
 ti,start of integration,01/03/2010, - ,
 tf,end of integration,15/06/2012, - ,
+CS,Commercial size,40,mm,http://www.ciesm.org/atlas/Ruditapesphilippinarum.html

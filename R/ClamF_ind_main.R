@@ -1,6 +1,4 @@
-#' Clam bioenergetic individual model - alternative version
-#'
-#' Solves the bioenergetic balance for Clam
+#' Clam bioenergetic individual model (alternative version)
 #'
 #' @param userpath the path where the working folder is located
 #' @param forcings a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3]
@@ -48,12 +46,13 @@ Dates=out_pre[[3]]
 IC=out_pre[[4]]
 Tint=out_pre[[5]]
 Chlint=out_pre[[6]]
+CS=out_pre[[7]]
 
 # Solves ODE
 output<-ClamF_ind_RKsolver(Param, times, IC, Tint, Chlint)
 
 # Post-process data
-out_post<-ClamF_ind_post(userpath, output, times, Dates)
+out_post<-ClamF_ind_post(userpath, output, times, Dates,CS)
 
 cat(" ")
 cat("End")

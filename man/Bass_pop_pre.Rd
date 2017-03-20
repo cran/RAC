@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bass_pop_pre.R
 \name{Bass_pop_pre}
 \alias{Bass_pop_pre}
-\title{Bass bioenergetic population model preprocessor}
+\title{Seabass bioenergetic population model preprocessor}
 \usage{
 Bass_pop_pre(userpath, forcings)
 }
@@ -15,6 +15,6 @@ Bass_pop_pre(userpath, forcings)
 a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees] and feeding rate [g/individual x d]
 }
 \description{
-Preprocesses the data for the bioenergetic balance for Sea Bream
+Seabass bioenergetic population model preprocessor
 }
 

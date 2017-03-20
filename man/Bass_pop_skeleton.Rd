@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bass_pop_skeleton.R
 \name{Bass_pop_skeleton}
 \alias{Bass_pop_skeleton}
-\title{Creates the folders structure for Bass population model}
+\title{Creates the folders structure for Seabass population model}
 \usage{
 Bass_pop_skeleton(userpath)
 }
@@ -10,6 +10,6 @@ Bass_pop_skeleton(userpath)
 \item{userpath}{the path where forcing are located}
 }
 \description{
-Creates the folders structure for Bass population model
+Creates the folders structure for Seabass population model
 }
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bream_pop_RKsolver.R
 \name{Bream_pop_RKsolver}
 \alias{Bream_pop_RKsolver}
-\title{Solves the Bream population bioenergetic balance with a 4th order Runge Kutta method}
+\title{Solves the Seabream population bioenergetic balance with a 4th order Runge Kutta method}
 \usage{
 Bream_pop_RKsolver(Param, Temperature, G, Food, IC, times, N)
 }
@@ -25,6 +25,6 @@ Bream_pop_RKsolver(Param, Temperature, G, Food, IC, times, N)
 a list containing the fish weight, proteines, lipids and carbohydrates wasted or produced with excretions, potential and actual ingestion rates, temperature limitation functions and metabolic rates
 }
 \description{
-Solves the Bream population bioenergetic balance with a 4th order Runge Kutta method
+Solves the Seabream population bioenergetic balance with a 4th order Runge Kutta method
 }
 

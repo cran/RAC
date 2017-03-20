@@ -1,10 +1,8 @@
-#' Bass bioenergetic population model
-#'
-#' Solves the bioenergetic balance for Sea Bass and simulates a population
+#' Seabass bioenergetic population model
 #'
 #' @param userpath the path where the working folder is located
 #' @param forcings a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees] and feeding rate [g/individual x d]
-#' @return A list containing model outputs: weight; excreted quantities and quantities to waste, actual and potential ingestion, temperature limitation functions and metabolic rates
+#' @return A list containing model outputs: weight, excreted quantities and quantities to waste, actual and potential ingestion, temperature limitation functions and metabolic rates
 #' @export
 #'
 #' @import matrixStats plotrix rstudioapi
@@ -52,12 +50,13 @@ Bass_pop_main<-function(userpath,forcings){
   times=out_pre[[6]]
   Dates=out_pre[[7]]
   N=out_pre[[8]]
+  CS=out_pre[[9]]
 
   # Manages population
   out_RKsolver<-Bass_pop_loop(Param, Tint, Gint, Food, IC, times, N, userpath)
 
   # Post-process data
-  out_post<-Bass_pop_post(userpath, out_RKsolver, times, Dates,N)
+  out_post<-Bass_pop_post(userpath, out_RKsolver, times, Dates,N, CS)
 
   cat(" ")
   cat("End")

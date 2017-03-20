@@ -27,6 +27,6 @@ Clam_ind_equations(Param, Tint, Phy, DT, POCint, POMint, TSSint, Wd)
 a list containing the clam weights, temperature limitation functions and metabolic rates at time t
 }
 \description{
-Energetic balance for Clam
+Clam bioenergetic individual model differential equations
 }
 

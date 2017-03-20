@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bream_pop_loop.R
 \name{Bream_pop_loop}
 \alias{Bream_pop_loop}
-\title{Function that runs the montecarlo simulation for the Bream population model}
+\title{Function that runs the Monte Carlo simulation for the Seabream population model}
 \usage{
 Bream_pop_loop(Param, Tint, Gint, Food, IC, times, N, userpath)
 }
@@ -27,6 +27,6 @@ Bream_pop_loop(Param, Tint, Gint, Food, IC, times, N, userpath)
 a list with RK solver outputs
 }
 \description{
-Function that runs the montecarlo simulation for the Bream population model
+Function that runs the Monte Carlo simulation for the Seabream population model
 }
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bream_ind_equations.R
 \name{Bream_ind_equations}
 \alias{Bream_ind_equations}
-\title{Bream bioenergetic individual model differential equations}
+\title{Seabream bioenergetic individual model differential equations}
 \usage{
 Bream_ind_equations(Param, Temp, G, Food, weight)
 }
@@ -21,6 +21,6 @@ Bream_ind_equations(Param, Temp, G, Food, weight)
 model output at time t
 }
 \description{
-Energetic balance for Sea Bream
+Seabream bioenergetic individual model differential equations
 }
 

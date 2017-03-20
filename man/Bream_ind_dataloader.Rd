@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bream_ind_dataloader.R
 \name{Bream_ind_dataloader}
 \alias{Bream_ind_dataloader}
-\title{Function that loads forcings data for Bream individual bioenergetic model and performs the interpolation}
+\title{Function that loads forcings data for Seabream individual bioenergetic model and performs the interpolation}
 \usage{
 Bream_ind_dataloader(userpath)
 }
@@ -13,6 +13,6 @@ Bream_ind_dataloader(userpath)
 a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees] and feeding rate [g/individual x d]
 }
 \description{
-Function that loads forcings data for Bream individual bioenergetic model and performs the interpolation
+Function that loads forcings data for Seabream individual bioenergetic model and performs the interpolation
 }
 

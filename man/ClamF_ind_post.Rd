@@ -2,23 +2,25 @@
 % Please edit documentation in R/ClamF_ind_post.R
 \name{ClamF_ind_post}
 \alias{ClamF_ind_post}
-\title{Postprocess the Clam indivual bioenergetic model results}
+\title{Postprocess the Clam indivual bioenergetic model (alternative version) results}
 \usage{
-ClamF_ind_post(userpath, output, times, Dates)
+ClamF_ind_post(userpath, output, times, Dates, CS)
 }
 \arguments{
 \item{userpath}{the path where the working folder is located}
 
-\item{output}{the output list of the}
+\item{output}{output list containing the output of the RK solver}
 
 \item{times}{the vector containing informations on integration extremes}
 
 \item{Dates}{the vector containing the date}
+
+\item{CS}{the commercial size of Clam}
 }
 \value{
 a list containing the clam weights, temperature limitation functions and metabolic rates
 }
 \description{
-Postprocess the Clam indivual bioenergetic model results
+Postprocess the Clam indivual bioenergetic model (alternative version) results
 }
 

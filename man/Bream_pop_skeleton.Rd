@@ -2,7 +2,7 @@
 % Please edit documentation in R/Bream_pop_skeleton.R
 \name{Bream_pop_skeleton}
 \alias{Bream_pop_skeleton}
-\title{Creates the folders structure for Bream population model}
+\title{Creates the folders structure for Seabream population model}
 \usage{
 Bream_pop_skeleton(userpath)
 }
@@ -10,6 +10,6 @@ Bream_pop_skeleton(userpath)
 \item{userpath}{the path where forcing are located}
 }
 \description{
-Creates the folders structure for Bream population model
+Creates the folders structure for Seabream population model
 }
 
