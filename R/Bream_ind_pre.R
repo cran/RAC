@@ -4,7 +4,6 @@
 #' @param userpath the path where folder containing model inputs and outputs is located
 #' @param forcings a list containing model forcings
 #' @return a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees] and feeding rate [g/individual x d]
-#' @export
 #'
 #' @import matrixStats plotrix rstudioapi
 #'
@@ -54,7 +53,7 @@ Ccont=Food[3]       # [-] Percentage of carbohydrates in the food
 cat(" \n")
 cat('The model will be executed with the following parameters:\n');
 cat(" \n")
-for (i in 2:21){
+for (i in 1:21){
 cat(paste0(toString(Param_matrix[i,2]), ": ", toString(Param_matrix[i,3]), " " ,toString(Param_matrix[i,4])),"\n")
 }
 

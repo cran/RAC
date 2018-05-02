@@ -34,6 +34,9 @@ Bass_ind_RKsolver <- function(Param, Temperature, G, Food, IC, times){
   ingvero=as.vector(matrix(0,nrow=ti))         # Initialize actual ingestion vector
   tfun=as.matrix(matrix(0,nrow=ti,ncol=2))     # Initialize temperature limitations vector
   metab=as.matrix(matrix(0,nrow=ti,ncol=2))    # Initialize metabolic rates vector
+  O2=as.matrix(matrix(0,nrow=ti,ncol=2))       # Initialize oxygen consumption rates vector
+  NH4=as.matrix(matrix(0,nrow=ti,ncol=2))      # Initialize ammonia release rates vector
+
 
   for (t in ti:(tf-1)) {
 
@@ -80,6 +83,8 @@ Bass_ind_RKsolver <- function(Param, Temperature, G, Food, IC, times){
   ingestionvero=unlist(output[5])
   temperaturefun=output[[6]]
   metabolism=output[[7]]
+  oxygen=output[[8]]
+  ammonia=output[[9]]
 
   # Outputs creation
   wst=rbind(wst, waste)
@@ -88,10 +93,12 @@ Bass_ind_RKsolver <- function(Param, Temperature, G, Food, IC, times){
   ingvero=rbind(ingvero, ingestionvero)
   tfun=rbind(tfun, temperaturefun)
   metab=rbind(metab, metabolism)
+  O2=rbind(O2, oxygen)
+  NH4=rbind(NH4, ammonia)
 
 }  # Close cycle
 
-  output=list(weight,exc,wst,ing,ingvero,tfun,metab)
+  output=list(weight,exc,wst,ing,ingvero,tfun,metab, O2, NH4)
   return(output) # Bass_ind_RKsolver output
 
 } # Close function

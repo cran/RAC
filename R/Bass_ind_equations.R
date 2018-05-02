@@ -88,10 +88,14 @@ Bass_ind_equations <- function(Param, Temp, G, Food, weight){
   catab=epsO2*k0*frT*(weight^n)*omega    # Fasting catabolism [J/d]
   metab=cbind(anab,catab)                # Output with metabolic rates
 
+  # O2 and NH4 produced
+  O2=catab/epsO2          # O2 consumed [g02/d]
+  NH4=O2*0.06             # NH4 produced [gN/d]
+
   # Mass balance
   dw = (anab-catab)/epstiss # weight increment [g/d]
 
   # Function outputs
-  output=list(dw,exc,wst,ing,ingvero,Tfun,metab)
+  output=list(dw,exc,wst,ing,ingvero,Tfun,metab, O2, NH4)
   return(output) # Bass_ind_equations output
 }

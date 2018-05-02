@@ -24,8 +24,6 @@
 Mussel_pop_RKsolver <- function(Param, times, IC, Tint, Phyint, DTint, POCint, Ccont, Ncont, Pcont, POMint, TSSint, N){
 
 
-  cat('ODE solution\n')
-
   # Parameters definition
 
   # Spawning times
@@ -69,6 +67,7 @@ Mussel_pop_RKsolver <- function(Param, times, IC, Tint, Phyint, DTint, POCint, C
   tfun=as.matrix(matrix(0,nrow=ti,ncol=2))     # Initialize temperature limitations vector
   metab=as.matrix(matrix(0,nrow=ti,ncol=2))    # Initialize metabolic rates vector
   cons=as.matrix(matrix(0,nrow=ti,ncol=1))     # Initialize oxygen consumption vector
+  amm=as.matrix(matrix(0,nrow=ti,ncol=1))     # Initialize oxygen consumption vector
 
   for (t in ti:(tf-1)) {
 
@@ -186,6 +185,7 @@ Mussel_pop_RKsolver <- function(Param, times, IC, Tint, Phyint, DTint, POCint, C
   temperaturefun=output[[6]]
   metabolism=output[[7]]
   consumption=output[[8]]
+  ammonium=output[[9]]
 
 
   # Outputs creation
@@ -196,10 +196,11 @@ Mussel_pop_RKsolver <- function(Param, times, IC, Tint, Phyint, DTint, POCint, C
   tfun=rbind(tfun,temperaturefun)
   metab=rbind(metab,metabolism)
   cons=rbind(cons,consumption)
+  amm=rbind(amm,ammonium)
 
 }  # Close cycle
 
-  output=list(weight,pfec,fec,comp,tfun,metab,cons)
+  output=list(weight,pfec,fec,comp,tfun,metab,cons,amm)
   return(output)
 
 } # Close function

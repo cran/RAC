@@ -4,7 +4,6 @@
 #' @param userpath the path where folder containing model inputs and outputs is located
 #' @param forcings a list containing model forcings
 #' @return a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees] and feeding rate [g/individual x d]
-#' @export
 #'
 #' @import matrixStats plotrix rstudioapi
 #'
@@ -29,9 +28,10 @@ Bream_pop_pre<-function(userpath,forcings){
   Food=read.csv(paste0(userpath,"/Bream_population/Inputs/Forcings//Food_characterization.csv"),sep=",",header=FALSE)    # Reading the food composition (Proteins, Lipids, Carbohydrates) data
 
   # Extract parameters and forcing values from parameters matrix and convert to type 'double' the vector contents
-  Param=as.double(as.matrix(Param_matrix[1:21,3]))           # Vector containing all parameters
+  Param=as.matrix(Param_matrix[1:21,3])           # Vector containing all parameters
+  Param=suppressWarnings(as.numeric(Param))
   Dates=Param_matrix[22:23,3]                                # Vector containing the starting and ending date of the simulation
-  IC=as.double(as.matrix(Param_matrix[24,3]))                # Initial weight condition
+  #IC=as.double(as.matrix(Param_matrix[24,3]))                # Initial weight condition
   CS=as.double(as.matrix(Param_matrix[25,3]))                # Commercial size
   Food=as.double(as.matrix(Food[,1]))                        # Food composition (Proteins, Lipids, Carbohydrates) data
 
@@ -40,8 +40,8 @@ Bream_pop_pre<-function(userpath,forcings){
   timestep=1                                        # Time step for integration [day]
   ti=as.numeric(as.Date(Dates[1], "%d/%m/%Y"))-t0   # Start of integration [day]
   tf=as.numeric(as.Date(Dates[2], "%d/%m/%Y"))-t0   # End of integration [day]
-  weight=as.vector(matrix(0,nrow=ti))               # Initialize vector weight
-  weight[ti]=IC                                     # Weight initial value [g]
+  #weight=as.vector(matrix(0,nrow=ti))               # Initialize vector weight
+  #weight[ti]=IC                                     # Weight initial value [g]
   times<-cbind(ti, tf, timestep,t0)                    # Vector with integration data
 
   # Food composition vector
@@ -56,6 +56,7 @@ Bream_pop_pre<-function(userpath,forcings){
   # Extract population parameters
   meanW=as.double(as.matrix(Pop_matrix[1,3]))      # [g] Dry weight average
   deltaW=as.double(as.matrix(Pop_matrix[2,3]))     # [g] Dry weight standard deviation
+  IC=deltaW
   Wlb=as.double(as.matrix(Pop_matrix[3,3]))        # [g] Dry weight lower bound
   meanImax=as.double(as.matrix(Pop_matrix[4,3]))   # [l/d gDW] Clearence rate average
   deltaImax=as.double(as.matrix(Pop_matrix[5,3]))  # [l/d gDW] Clearance rate standard deviation
@@ -119,10 +120,14 @@ Bream_pop_pre<-function(userpath,forcings){
     cat(paste0(toString(Management[i,1])," ", toString(Management[i,2]), " " ,toString(Management[i,3])),"individuals\n")
   }
 
+  cat(" \n")
+  cat("The individual model will be executed ", toString(nruns), " times in order to simulate a population\n")
+  cat(" \n")
+
   # Plot to file inserted forcing functions
 
   cat(" \n")
-  cat("Forcings are represented in graphs available at the following folder\n")
+  cat("Forcings are represented in graphs available at the following folder:\n")
   cat(paste0(userpath,"/Bream_population/Inputs/In_plots\n"))
 
   # Plot Temperature forcing

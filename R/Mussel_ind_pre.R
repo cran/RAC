@@ -3,7 +3,6 @@
 #' @param userpath the path where folder containing model inputs and outputs is located
 #' @param forcings a list containing model forcings
 #' @return a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3], particulated organic carbon (POC) concentration [mgC/l] and its characterization in terms of C/P and N/P molar ratios, particulated organic matter (POM) concentration [mgC/l], total suspended solids (TSS) concentration [mg/l]
-#' @export
 #'
 #' @import matrixStats plotrix rstudioapi
 #'
@@ -77,7 +76,7 @@ Pcont=array(1,c(1,length(CPOCint)))/CPOCint      # Seston P/C content in weight
 cat(" \n")
 cat('The model will be executed with the following parameters:\n');
 cat(" \n")
-for (i in 2:36){
+for (i in 1:36){
   cat(paste0(toString(Param_matrix[i,2]), ": ", toString(Param_matrix[i,3]), " " ,toString(Param_matrix[i,4])),"\n")
 }
 
@@ -100,7 +99,7 @@ currentpath=getwd()
 filepath=paste0(userpath,"/Mussel_individual/Inputs/Forcings_plots//Water_temperature.jpeg")
 jpeg(filepath,800,600)
 days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1)
-plot(days, Tintsave, ylab="Water temperature (Celsius degreees)", xlab="",xaxt = "n",type="l",cex.lab=1.4)
+plot(days, Tintsave, ylab="Water temperature (Celsius degrees)", xlab="",xaxt = "n",type="l",cex.lab=1.4)
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
@@ -138,24 +137,13 @@ labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "mon
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
-# Plot TSS forcing
+# Plot TSM forcing
 TSSintsave=TSSint[ti:tf]
 currentpath=getwd()
 filepath=paste0(userpath,"/Mussel_individual/Inputs/Forcings_plots//TSM.jpeg")
 jpeg(filepath,800,600)
 days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1)
-plot(days, TSSintsave, ylab="TSS (mg/l)", xlab="", xaxt = "n",type="l",cex.lab=1.4)
-labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
-axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
-dev.off()
-
-# Plot Detritus forcing
-DTintsave=DTint[ti:tf]
-currentpath=getwd()
-filepath=paste0(userpath,"/Mussel_individual/Inputs/Forcings_plots//DT.jpeg")
-jpeg(filepath,800,600)
-days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1)
-plot(days, DTintsave, ylab="DT (mgC/l)", xlab="", xaxt = "n",type="l",cex.lab=1.4)
+plot(days, TSSintsave, ylab="TSM (mg/l)", xlab="", xaxt = "n",type="l",cex.lab=1.4)
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
@@ -169,7 +157,7 @@ jpeg(filepath,800,600)
 lb=0
 ub=max(CPOCintsave,NPOCintsave)
 days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1)
-plot(days, CPOCintsave, ylab="POC_characterization (molar ratios)", xlab="", xaxt = "n",type="l",cex.lab=1.4,col="blue",ylim=c(lb,ub+0.1*ub))
+plot(days, CPOCintsave, ylab="POC characterization (molar ratios)", xlab="", xaxt = "n",type="l",cex.lab=1.4,col="blue",ylim=c(lb,ub+0.1*ub))
 lines(days,NPOCintsave,col="red")
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)

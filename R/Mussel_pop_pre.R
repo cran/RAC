@@ -3,7 +3,6 @@
 #' @param userpath the path where folder containing model inputs and outputs is located
 #' @param forcings a list containing forcings used by the model
 #' @return a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3], particulated organic carbon (POC) concentration [mgC/l] and its characterization in terms of C/P and N/P molar ratios, particulated organic matter (POM) concentration [mgC/l], total suspended solids (TSS) concentration [mg/l]
-#' @export
 #'
 #' @import matrixStats plotrix rstudioapi
 #'
@@ -36,9 +35,11 @@ cat("Data preprocessing")
 Param_matrix=read.csv(paste0(userpath,"/Mussel_population/Inputs/Parameters//Parameters.csv"),sep=",")                      # Reading the matrix containing parameters and their description
 
 # Extract parameters and forcing values from parameters matrix and convert to type 'double' the vector contents
-Param=as.double(as.matrix(Param_matrix[1:36,3]))     # Vector containing all parameters
+Param=as.matrix(Param_matrix[1:36,3])     # Vector containing all parameters
+Param=suppressWarnings(as.numeric(Param))
+
 Dates=Param_matrix[37:38,3]                          # Vector containing the starting and ending date of teh simulation
-IC=as.double(as.matrix(Param_matrix[39,3]))          # Initial weight condition
+# IC=as.double(as.matrix(Param_matrix[39,3]))          # Initial weight condition
 CS=as.double(as.matrix(Param_matrix[40,3]))                # Commercial size
 
 # Prepare data for ODE solution
@@ -49,12 +50,14 @@ tf=as.numeric(as.Date(Dates[2], "%d/%m/%Y"))-t0    # End of integration [day]
 times<-cbind(ti, tf, timestep,t0)                    # Vector with integration data
 
 # Initial conditions
-Wb=as.vector(matrix(0,nrow=ti))            # Initialize vector somatic tissue weight
-Wb[ti]=IC                                  # Somatic tissue initial value [g]
-R=as.vector(matrix(0,nrow=ti))             # Initialize vector gonadic tissue weight
-R[ti]=0                                    # Gonadic weight initial value [g]
-L=as.vector(matrix(0,nrow=ti))             # Initialize vector length
-L[ti]=Param[20]*(Wb[ti]+R[ti])^Param[21]   # Length of the mussel initial value [cm]
+#Wb=as.vector(matrix(0,nrow=ti))            # Initialize vector somatic tissue weight
+#Wb[ti]=IC                                  # Somatic tissue initial value [g]
+#R=as.vector(matrix(0,nrow=ti))             # Initialize vector gonadic tissue weight
+#R[ti]=0                                    # Gonadic weight initial value [g]
+#L=as.vector(matrix(0,nrow=ti))             # Initialize vector length
+#L[ti]=Param[20]*(Wb[ti]+R[ti])^Param[21]   # Length of the mussel initial value [cm]
+IC=0
+
 
 # Detritus
 lambda=Param[33]    # Chla-C proportionality coefficient: relates Chlorophyll-a to phytoplankton concentration
@@ -138,10 +141,14 @@ for (i in 1:length(Management[,1])){
   cat(paste0(toString(Management[i,1])," ", toString(Management[i,2]), " " ,toString(Management[i,3])),"individuals\n")
 }
 
+cat(" \n")
+cat("The individual model will be executed ", toString(nruns), " times in order to simulate a population\n")
+cat(" \n")
+
 # Plot to file inserted forcing functions
 
 cat(" \n")
-cat("Forcings are represented in graphs available at the following folder\n")
+cat("Forcings are represented in graphs available at the following folder:\n")
 cat(paste0(userpath,"/Mussel_population/Inputs/Forcings_plots\n"))
 
 # Plot Water temperature forcing
@@ -188,24 +195,13 @@ labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "mon
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
-# Plot TSS forcing
+# Plot TSM forcing
 TSSintsave=TSSint[ti:tf]
 currentpath=getwd()
 filepath=paste0(userpath,"/Mussel_population/Inputs/Forcings_plots//TSM.jpeg")
 jpeg(filepath,800,600)
 days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1)
-plot(days, TSSintsave, ylab="TSS (mg/l)", xlab="", xaxt = "n",type="l",cex.lab=1.4)
-labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
-axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
-dev.off()
-
-# Plot detritus forcing
-DTintsave=DTint[ti:tf]
-currentpath=getwd()
-filepath=paste0(userpath,"/Mussel_population/Inputs/Forcings_plots//DT.jpeg")
-jpeg(filepath,800,600)
-days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1)
-plot(days, DTintsave, ylab="DT (mgC/l)", xlab="", xaxt = "n",type="l",cex.lab=1.4)
+plot(days, TSSintsave, ylab="TSM (mg/l)", xlab="", xaxt = "n",type="l",cex.lab=1.4)
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
@@ -219,7 +215,7 @@ jpeg(filepath,800,600)
 lb=0
 ub=max(CPOCintsave,NPOCintsave)
 days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1)
-plot(days, CPOCintsave, ylab="POC_characterization (molar ratios)", xlab="", xaxt = "n",type="l",cex.lab=1.4,col="blue",ylim=c(lb,ub+0.1*ub))
+plot(days, CPOCintsave, ylab="POC characterization (molar ratios)", xlab="", xaxt = "n",type="l",cex.lab=1.4,col="blue",ylim=c(lb,ub+0.1*ub))
 lines(days,NPOCintsave,col="red")
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)

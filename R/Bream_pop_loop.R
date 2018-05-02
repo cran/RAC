@@ -60,8 +60,12 @@ Cwst=as.matrix(matrix(0,nrow=nruns,ncol=tf))      # Initialize carbohydrates to 
 ingestion=as.matrix(matrix(0,nrow=nruns,ncol=tf)) # Initialize actual ingestion vector
 A=as.matrix(matrix(0,nrow=nruns,ncol=tf))         # Initialize anabolic rate vector
 C=as.matrix(matrix(0,nrow=nruns,ncol=tf))         # Initialize catabolic rate vector
+O2=as.matrix(matrix(0,nrow=nruns,ncol=tf))        # Initialize oxygen consumption rate vector
+NH4=as.matrix(matrix(0,nrow=nruns,ncol=tf))       # Initialize ammonium release rate vector
 
 # Population LOOP
+
+pb <- txtProgressBar(min = 0, max = nruns, style = 3)
 
 for (ii in 1:nruns){
 
@@ -89,6 +93,8 @@ for (ii in 1:nruns){
   ingvero=unlist(output[5])
   Tfun=output[[6]]
   metab=output[[7]]
+  oxygen=output[[8]]
+  ammonium=output[[9]]
 
   # Saves results of each run to compute statistics
   W[ii,1:length(weight)]=weight           # Tissue dry weight [g]
@@ -106,7 +112,14 @@ for (ii in 1:nruns){
   A[ii,1:length(metab[,1])]=metab[,1]     # Net anabolism [J/d]
   C[ii,1:length(metab[,1])]=metab[,2]     # Fasting catabolism [J/d]
 
+  O2[ii,1:length(oxygen)]=oxygen           # Tissue dry weight [kgO2/d]
+  NH4[ii,1:length(ammonium)]=ammonium      # Tissue dry weight [kgN/d]
+
+  setTxtProgressBar(pb, ii)
+
 } # Close population loop
+
+close(pb)
 
 # Temperaure limitation functions
 
@@ -131,7 +144,10 @@ Cwst_stat=t(rbind(colMeans(Cwst), colSds(Cwst)))
 A_stat=t(rbind(colMeans(A), colSds(A)))
 C_stat=t(rbind(colMeans(C), colSds(C)))
 
-output=list(W_stat,Pexc_stat,Lexc_stat,Cexc_stat,ingestion_stat,Pwst_stat,Lwst_stat,Cwst_stat,A_stat,C_stat,fgT,frT)
+O2_stat=t(rbind(colMeans(O2), colSds(O2)))
+NH4_stat=t(rbind(colMeans(NH4), colSds(NH4)))
+
+output=list(W_stat,Pexc_stat,Lexc_stat,Cexc_stat,ingestion_stat,Pwst_stat,Lwst_stat,Cwst_stat,A_stat,C_stat,fgT,frT, O2_stat, NH4_stat)
 return(output)
 
 }

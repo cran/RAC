@@ -35,27 +35,31 @@ A_stat=output[[9]]
 C_stat=output[[10]]
 fgT=output[[11]]
 frT=output[[12]]
-
+O2_stat=output[[13]]
+NH4_stat=output[[14]]
 
 # Adjusts results acoording with integration extremes
 # now day 1 coincides with ti
 weightSave=W_stat[ti:tf,]
 
-PexcSave=Pexc_stat[ti:tf,]
-LexcSave=Lexc_stat[ti:tf,]
-CexcSave=Cexc_stat[ti:tf,]
+PexcSave=Pexc_stat[(ti+1):tf,]
+LexcSave=Lexc_stat[(ti+1):tf,]
+CexcSave=Cexc_stat[(ti+1):tf,]
 
-ingestionSave=ingestion_stat[ti:tf,]
+ingestionSave=ingestion_stat[(ti+1):tf,]
 
-PwstSave=Pwst_stat[ti:tf,]
-LwstSave=Lwst_stat[ti:tf,]
-CwstSave=Cwst_stat[ti:tf,]
+PwstSave=Pwst_stat[(ti+1):tf,]
+LwstSave=Lwst_stat[(ti+1):tf,]
+CwstSave=Cwst_stat[(ti+1):tf,]
 
-ASave=A_stat[ti:tf,]
-CSave=C_stat[ti:tf,]
+ASave=A_stat[(ti+1):tf,]
+CSave=C_stat[(ti+1):tf,]
 
-fgT=fgT[ti:tf]
-frT=frT[ti:tf]
+fgT=fgT[(ti+1):tf]
+frT=frT[(ti+1):tf]
+
+O2Save=O2_stat[(ti+1):tf,]
+NH4Save=NH4_stat[(ti+1):tf,]
 
 N=N[ti:tf]
 
@@ -97,10 +101,11 @@ if (length(NonNAindex)==0) {
 # List containing days to size
 daysToSize<-as.list(cbind(Ub_daysToSize,Mean_daysToSize,Lb_daysToSize))
 
-output=list(weightSave,PexcSave,LexcSave,CexcSave,ingestionSave,PwstSave,LwstSave,CwstSave,ASave,CSave,fgT,frT,N, daysToSize)
+output=list(weightSave,PexcSave,LexcSave,CexcSave,ingestionSave,PwstSave,LwstSave,CwstSave,ASave,CSave,fgT,frT,O2Save, NH4Save, N,daysToSize)
 
 # Plot results
-days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1) # create a dates vector to plot results
+days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti) # create a dates vector to plot results
+days2 <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1) # create a dates vector to plot results
 currentpath=getwd()
 
 # Plot weight
@@ -109,20 +114,20 @@ jpeg(filepath,800,600)
 ub=weightSave[,1]+weightSave[,2]
 lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
 for (i in 1:length(weightSave[,1]-weightSave[,2])){
-lb[i]=max(weightSave[i,1]-weightSave[i,2],0)
+  lb[i]=max(weightSave[i,1]-weightSave[i,2],0)
 }
 maxub=max(weightSave[,1]+weightSave[,2])
-plot(days,weightSave[,1],ylab="Weight (g)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
-polygon(c(days,rev(days)),c(lb,rev(ub)),col="grey90",border=FALSE)
-lines(days,weightSave[,1],lwd=2,col="red")
-lines(days,lb,col="blue")
-lines(days,ub,col="blue")
+plot(days2,weightSave[,1],ylab="Weight (g)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
+polygon(c(days2,rev(days2)),c(lb,rev(ub)),col="grey90",border=FALSE)
+lines(days2,weightSave[,1],lwd=2,col="red")
+lines(days2,lb,col="blue")
+lines(days2,ub,col="blue")
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # plot excretion
-filepath=paste0(userpath,"/Bream_population/Outputs/Out_plots//excretion.jpeg")
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_plots//faeces_production.jpeg")
 jpeg(filepath,800,600)
 Lub=LexcSave[,1]+LexcSave[,2]
 Pub=PexcSave[,1]+PexcSave[,2]
@@ -136,7 +141,7 @@ for (i in 1:length(LexcSave[,1]-LexcSave[,2])){
   Clb[i]=max(CexcSave[i,1]-CexcSave[i,2],0)
 }
 maxub=max(Lub,Pub,Cub)
-plot(days,LexcSave[,1],ylab="Excreted quantities (kg/d)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
+plot(days,LexcSave[,1],ylab="Faeces production (kg/d)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
 polygon(c(days,rev(days)),c(Llb,rev(Lub)),col="grey75",border=FALSE)
 lines(days,LexcSave[,1],lwd=2,col="red")
 polygon(c(days,rev(days)),c(Plb,rev(Pub)),col="grey75",border=FALSE)
@@ -145,12 +150,12 @@ polygon(c(days,rev(days)),c(Clb,rev(Cub)),col="grey75",border=FALSE)
 lines(days,CexcSave[,1],lwd=2,col="blue")
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
-legend("topleft",c("Excreted Proteins","Excreted Lipids","excreted Carbohydrates"),fill=c("red","green","blue"))
+legend("topleft",c("Proteins","Lipids","Carbohydrates"),fill=c("red","green","blue"))
 dev.off()
 
 
 # plot wasted food
-filepath=paste0(userpath,"/Bream_population/Outputs/Out_plots//waste.jpeg")
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_plots//wasted_feed.jpeg")
 jpeg(filepath,800,600)
 Lub=LwstSave[,1]+LwstSave[,2]
 Pub=PwstSave[,1]+PwstSave[,2]
@@ -164,7 +169,7 @@ for (i in 1:length(LwstSave[,1]-LwstSave[,2])){
   Clb[i]=max(CwstSave[i,1]-CwstSave[i,2],0)
 }
 maxub=max(Lub,Pub,Cub)
-plot(days,LwstSave[,1],ylab="Excreted quantities (kg/d)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
+plot(days,LwstSave[,1],ylab="Wasted feed (kg/d)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
 polygon(c(days,rev(days)),c(Llb,rev(Lub)),col="grey75",border=FALSE)
 lines(days,LwstSave[,1],lwd=2,col="red")
 polygon(c(days,rev(days)),c(Plb,rev(Pub)),col="grey75",border=FALSE)
@@ -173,11 +178,11 @@ polygon(c(days,rev(days)),c(Clb,rev(Cub)),col="grey75",border=FALSE)
 lines(days,CwstSave[,1],lwd=2,col="blue")
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
-legend("topleft",c("Proteins to waste","Lipids to waste","Carbohydrates to waste"),fill=c("red","green","blue"))
+legend("topleft",c("Proteins","Lipids","Carbohydrates"),fill=c("red","green","blue"))
 dev.off()
 
 # plot ingested food
-filepath=paste0(userpath,"/Bream_population/Outputs/Out_plots//ingestion.jpeg")
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_plots//actual_ingestion.jpeg")
 jpeg(filepath,800,600)
 ub=ingestionSave[,1]+ingestionSave[,2]
 lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
@@ -195,12 +200,12 @@ axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # plot limitation functions
-filepath=paste0(userpath,"/Bream_population/Outputs/Out_plots//Tfun.jpeg")
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_plots//temperature_response.jpeg")
 jpeg(filepath,800,600)
 ub=max(max(fgT),max(frT))
-plot(days,fgT,ylab="Temperature limitation functions",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
+plot(days,fgT,ylab="Temperature response function",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
 lines(days,frT,col="blue")
-legend("topright",c("Anabolism limitation","Catabolism limitation"),fill=c("red","blue"))
+legend("topright",c("Anabolism","Catabolism"),fill=c("red","blue"))
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
@@ -230,38 +235,93 @@ dev.off()
 # plot population dynamics
 filepath=paste0(userpath,"/Bream_population/Outputs/Out_plots//Population.jpeg")
 jpeg(filepath,800,600)
-plot(days, N, ylab="Individuals", xlab="", xaxt = "n",type="l",cex.lab=1.4)
+plot(days2, N, ylab="Number of individuals", xlab="", xaxt = "n",type="l",cex.lab=1.4)
+labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
+axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
+dev.off()
+
+# plot O2 consumption
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_plots//O2_consumption.jpeg")
+jpeg(filepath,800,600)
+ub=O2Save[,1]+O2Save[,2]
+lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
+for (i in 1:length(O2Save[,1]-O2Save[,2])){
+  lb[i]=max(O2Save[i,1]-O2Save[i,2],0)
+}
+maxub=max(O2Save[,1]+O2Save[,2])
+plot(days,O2Save[,1],ylab="O2 consumption (kgO2/d)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
+polygon(c(days,rev(days)),c(lb,rev(ub)),col="grey90",border=FALSE)
+lines(days,O2Save[,1],lwd=2,col="red")
+lines(days,lb,col="blue")
+lines(days,ub,col="blue")
+labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
+axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
+dev.off()
+
+# plot NH4 production
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_plots//NH4_release.jpeg")
+jpeg(filepath,800,600)
+ub=NH4Save[,1]+NH4Save[,2]
+lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
+for (i in 1:length(NH4Save[,1]-NH4Save[,2])){
+  lb[i]=max(NH4Save[i,1]-NH4Save[i,2],0)
+}
+maxub=max(NH4Save[,1]+NH4Save[,2])
+plot(days,NH4Save[,1],ylab="NH4 release (kgN/d)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
+polygon(c(days,rev(days)),c(lb,rev(ub)),col="grey90",border=FALSE)
+lines(days,NH4Save[,1],lwd=2,col="red")
+lines(days,lb,col="blue")
+lines(days,ub,col="blue")
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # Results save
-
 filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//weight.csv")
 write.csv(weightSave,filepath)
 
-filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//Pexc.csv")
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//faeces_production_Proteins.csv")
 write.csv(PexcSave,filepath)
 
-filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//Lexc.csv")
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//faeces_production_Lipids.csv")
 write.csv(LexcSave,filepath)
 
-filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//Cexc.csv")
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//faeces_production_Carbohydrates.csv")
 write.csv(CexcSave,filepath)
 
-filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//Pwst.csv")
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//wasted_feed_Proteins.csv")
 write.csv(PwstSave,filepath)
 
-filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//Lwst.csv")
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//wasted_feed_Lipids.csv")
 write.csv(LwstSave,filepath)
 
-filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//Cwst.csv")
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//wasted_feed_Carbohydrates.csv")
 write.csv(CwstSave,filepath)
 
-filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//ing.csv")
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//actual_ingestion.csv")
 write.csv(ingestionSave,filepath)
 
-filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//Days_to_comercial_size.csv")
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//anabolic_rate.csv")
+write.csv(ASave,filepath)
+
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//catabolic_rate.csv")
+write.csv(CSave,filepath)
+
+tfun=cbind(fgT,frT)
+
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//temperature_response.csv")
+write.csv(tfun,filepath)
+
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//O2_consumption.csv")
+write.csv(O2Save,filepath)
+
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//NH4_release.csv")
+write.csv(NH4Save,filepath)
+
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//population.csv")
+write.csv(N,filepath)
+
+filepath=paste0(userpath,"/Bream_population/Outputs/Out_csv//Days_to_commercial_size.csv")
 write.csv(daysToSize,filepath)
 
 return(output)

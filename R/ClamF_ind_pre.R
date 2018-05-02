@@ -3,7 +3,6 @@
 #' @param userpath the path where folder containing model inputs and outputs is located
 #' @param forcings a list containing model forcings
 #' @return a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3]
-#' @export
 #'
 #' @import matrixStats plotrix rstudioapi
 #'

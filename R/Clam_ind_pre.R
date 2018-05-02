@@ -3,7 +3,6 @@
 #' @param userpath the path where folder containing model inputs and outputs is located
 #' @param forcings a list containing model forcings
 #' @return a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3], particulated organic carbon (POC) concentration [mgC/l], particulated organic matter (POM) concentration [mgC/l], total suspended solids (TSS) concentration [mg/l]
-#' @export
 #'
 #' @import matrixStats plotrix rstudioapi
 #'
@@ -145,17 +144,6 @@ filepath=paste0(userpath,"/Clam_individual/Inputs/Forcings_plots//TSM.jpeg")
 jpeg(filepath,800,600)
 days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1)
 plot(days, TSSintsave, ylab="TSM (mg/l)", xlab="", xaxt = "n",type="l",cex.lab=1.4)
-labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
-axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
-dev.off()
-
-# Plot detritus forcing
-DTintsave=DTint[ti:tf]
-currentpath=getwd()
-filepath=paste0(userpath,"/Clam_individual/Inputs/Forcings_plots//DT.jpeg")
-jpeg(filepath,800,600)
-days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1)
-plot(days, DTintsave, ylab="DT (mgC/l)", xlab="", xaxt = "n",type="l",cex.lab=1.4)
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()

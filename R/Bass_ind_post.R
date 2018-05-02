@@ -29,16 +29,20 @@ ing=unlist(output[4])
 ingvero=unlist(output[5])
 Tfun=output[[6]]
 metab=output[[7]]
+O2=output[[8]]
+NH4=output[[9]]
 
 # Adjusts results acoording with integration extremes
 # now day 1 coincides with ti
-weightSave=weight[(ti+1):tf]
-excSave=exc[(ti+1):tf,]
-wstSave=wst[(ti+1):tf,]
-ingSave=ing[(ti+1):tf]
-ingveroSave=ingvero[(ti+1):tf]
-TfunSave=Tfun[(ti+1):tf,]
-metabSave=metab[(ti+1):tf,]
+weightSave=weight[ti:(tf-2)]
+excSave=exc[(ti+1):(tf-2),]
+wstSave=wst[(ti+1):(tf-2),]
+ingSave=ing[(ti+1):(tf-2)]
+ingveroSave=ingvero[(ti+1):(tf-2)]
+TfunSave=Tfun[(ti+1):(tf-2),]
+metabSave=metab[(ti+1):(tf-2),]
+O2Save=O2[(ti+1):(tf-2)]
+NH4Save=NH4[(ti+1):(tf-2)]
 
 # Days to commercial size
 foo <- function(w,S){which(w>S)[1]}
@@ -52,45 +56,46 @@ if (length(NonNAindex)==0) {
 }
 daysToSize<-as.list(daysToSize)
 
-output=list(weightSave,excSave,ingSave,ingveroSave,wstSave,metabSave,TfunSave,daysToSize)
+output=list(weightSave,excSave,ingSave,ingveroSave,wstSave,metabSave,TfunSave, O2Save, NH4Save, daysToSize)
 
 # Plot results
-days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti) # create a dates vector to plot results
+days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti-2) # create a dates vector to plot results
+days2 <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti-1) # create a dates vector to plot results
 
 # Plot weight
 filepath=paste0(userpath,"/Bass_individual/Outputs/Out_plots//weight.jpeg")
 jpeg(filepath,800,600)
-plot(days,weightSave,ylab="Weight (g)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4)
-labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
-axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
+plot(days2,weightSave,ylab="Weight (g)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4)
+labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days2, 1), by = "months")
+axis.Date(side = 1, days2, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # plot excretion
-filepath=paste0(userpath,"/Bass_individual/Outputs/Out_plots//excretion.jpeg")
+filepath=paste0(userpath,"/Bass_individual/Outputs/Out_plots//faeces_production.jpeg")
 jpeg(filepath,800,600)
 ub=max(max(excSave[,1]),max(excSave[,2]),max(excSave[,3]))
-plot(days,excSave[,1],ylab="Excreted quantities (g/d)",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
+plot(days,excSave[,1],ylab="Faeces production (g/d)",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
 lines(days,excSave[,2],col="blue")
 lines(days,excSave[,3],col="black")
-legend("topleft",c("Excreted Proteins","Excreted Lipids","excreted Carbohydrates"),fill=c("red","blue","black"))
+legend("topleft",c("Proteins","Lipids","Carbohydrates"),fill=c("red","blue","black"))
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # plot wasted food
-filepath=paste0(userpath,"/Bass_individual/Outputs/Out_plots//waste.jpeg")
+filepath=paste0(userpath,"/Bass_individual/Outputs/Out_plots//wasted_feed.jpeg")
 jpeg(filepath,800,600)
 ub=max(max(wstSave[,1]),max(wstSave[,2]),max(wstSave[,3]))
-plot(days,wstSave[,1],ylab="Quantities to waste (g/d)",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
+plot(days,wstSave[,1],ylab="Wasted feed (g/d)",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
 lines(days,wstSave[,2],col="blue")
 lines(days,wstSave[,3],col="black")
-legend("topleft",c("Proteins to waste","Lipids to waste","Carbohydrates to waste"),fill=c("red","blue","black"))
+legend("topleft",c("Proteins","Lipids","Carbohydrates"),fill=c("red","blue","black"))
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # plot ingested food
-filepath=paste0(userpath,"/Bass_individual/Outputs/Out_plots//ingestion.jpeg")
+filepath=paste0(userpath,"/Bass_individual/Outputs/Out_plots//actual_ingestion.jpeg")
 jpeg(filepath,800,600)
 plot(days,ingveroSave,ylab="Ingested food (g)",xlab=" ",xaxt = "n",type="l",cex.lab=1.4)
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
@@ -98,12 +103,12 @@ axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # plot limitation functions
-filepath=paste0(userpath,"/Bass_individual/Outputs/Out_plots//T_limitation.jpeg")
+filepath=paste0(userpath,"/Bass_individual/Outputs/Out_plots//temperature_response.jpeg")
 jpeg(filepath,800,600)
 ub=max(max(TfunSave[,1]),max(TfunSave[,2]))
-plot(days,TfunSave[,1],ylab="Temperature limitation functions",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
+plot(days,TfunSave[,1],ylab="Temperature response function",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
 lines(days,TfunSave[,2],col="blue")
-legend("topright",c("Anabolism limitation","Catabolism limitation"),fill=c("red","blue"))
+legend("topright",c("Anabolism","Catabolism"),fill=c("red","blue"))
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
@@ -119,15 +124,31 @@ labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "mon
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
+# Plot O2 consumed
+filepath=paste0(userpath,"/Bass_individual/Outputs/Out_plots//O2_consumption.jpeg")
+jpeg(filepath,800,600)
+plot(days,O2Save,ylab="Oxygen consumption (gO2/d)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4)
+labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
+axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
+dev.off()
+
+# Plot NH4 produced
+filepath=paste0(userpath,"/Bass_individual/Outputs/Out_plots//NH4_release.jpeg")
+jpeg(filepath,800,600)
+plot(days,NH4Save,ylab="NH4 release (gN/d)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4)
+labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
+axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
+dev.off()
+
 # Results save
 
 filepath=paste0(userpath,"/Bass_individual/Outputs/Out_csv//weight.csv")
 write.csv(weightSave,filepath)
 
-filepath=paste0(userpath,"/Bass_individual/Outputs/Out_csv//excretion.csv")
+filepath=paste0(userpath,"/Bass_individual/Outputs/Out_csv//faeces_production.csv")
 write.csv(excSave,filepath)
 
-filepath=paste0(userpath,"/Bass_individual/Outputs/Out_csv//waste.csv")
+filepath=paste0(userpath,"/Bass_individual/Outputs/Out_csv//wasted_feed.csv")
 write.csv(wstSave,filepath)
 
 filepath=paste0(userpath,"/Bass_individual/Outputs/Out_csv//potential_ingestion.csv")
@@ -136,7 +157,19 @@ write.csv(ingSave,filepath)
 filepath=paste0(userpath,"/Bass_individual/Outputs/Out_csv//actual_ingestion.csv")
 write.csv(ingveroSave,filepath)
 
-filepath=paste0(userpath,"/Bass_individual/Outputs/Out_csv//Days_to_comercial_size.csv")
+filepath=paste0(userpath,"/Bass_individual/Outputs/Out_csv//temperature_response.csv")
+write.csv(TfunSave,filepath)
+
+filepath=paste0(userpath,"/Bass_individual/Outputs/Out_csv//metabolism.csv")
+write.csv(metabSave,filepath)
+
+filepath=paste0(userpath,"/Bass_individual/Outputs/Out_csv//O2_consumption.csv")
+write.csv(O2Save,filepath)
+
+filepath=paste0(userpath,"/Bass_individual/Outputs/Out_csv//NH4_release.csv")
+write.csv(NH4Save,filepath)
+
+filepath=paste0(userpath,"/Bass_individual/Outputs/Out_csv//Days_to_commercial_size.csv")
 write.csv(daysToSize,filepath)
 
 return(output)

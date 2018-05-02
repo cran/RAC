@@ -3,7 +3,6 @@
 #' @param userpath the path where folder containing model inputs and outputs is located
 #' @param forcings a list containing model forcings
 #' @return a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3]
-#' @export
 #'
 #' @import matrixStats plotrix rstudioapi
 #'
@@ -29,7 +28,8 @@ ClamF_pop_pre<-function(userpath,forcings){
 Param_matrix=read.csv(paste0(userpath,"/ClamF_population/Inputs/Parameters//Parameters.csv"),sep=",")                      # Reading the matrix containing parameters and their description
 
   # Extract parameters and forcing values from parameters matrix and convert to type 'double' the vector contents
-Param=as.double(as.matrix(Param_matrix[1:25,3]))     # Vector containing all parameters
+Param=as.matrix(Param_matrix[1:25,3])     # Vector containing all parameters
+Param=suppressWarnings(as.numeric(Param))
 Dates=Param_matrix[27:28,3]                          # Vector containing the starting and ending date of teh simulation
 IC=as.double(as.matrix(Param_matrix[26,3]))          # Initial weight condition
 CS=as.double(as.matrix(Param_matrix[29,3]))                # Commercial size
@@ -60,6 +60,7 @@ Management=read.csv(paste0(userpath,"/ClamF_population/Inputs/Population_managem
 
 # Extract population parameters
 meanWw=as.double(as.matrix(Pop_matrix[1,3]))    # [g] Wet weight average
+IC=meanWw
 deltaWw=as.double(as.matrix(Pop_matrix[2,3]))   # [g] Wet weight standard deviation
 Wwlb=as.double(as.matrix(Pop_matrix[3,3]))      # [g] Wet weight lower bound
 meanGdmax=as.double(as.matrix(Pop_matrix[4,3])) # [l/d gDW] Maximum growth rate on a dry weight average
@@ -119,10 +120,14 @@ for (i in 1:length(Management[,1])){
   cat(paste0(toString(Management[i,1])," ", toString(Management[i,2]), " " ,toString(Management[i,3])),"individuals\n")
 }
 
+cat(" \n")
+cat("The individual model will be executed ", toString(nruns), " times in order to simulate a population\n")
+cat(" \n")
+
 # Plot to file inserted forcing functions
 
 cat(" \n")
-cat("Forcings are represented in graphs available at the following folder\n")
+cat("Forcings are represented in graphs available at the following folder:\n")
 cat(paste0(userpath,"/ClamF_population/Inputs/Forcings_plots\n"))
 
 # plot Temperature forcing

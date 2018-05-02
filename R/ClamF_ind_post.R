@@ -28,9 +28,9 @@ metab=output[[3]]
 
 # Adjusts results acoording with integration extremes
 # now day 1 coincides with ti
-weightSave=weight[(ti:tf),]
-TfunSave=Tfun[ti:tf,]
-metabSave=metab[ti:tf,]
+weightSave=weight[ti:tf,]
+TfunSave=Tfun[(ti+1):tf,]
+metabSave=metab[(ti+1):tf,]
 
 # Days to commercial size
 foo <- function(w,S){which(w>S)[1]}
@@ -48,9 +48,10 @@ output=list(weightSave,TfunSave,metabSave,daysToSize)
 
 # Plot results
 days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1) # create a dates vector to plot results
+days2 <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti) # create a dates vector to plot results
 
 # Plot weight
-filepath=paste0(userpath,"/ClamF_individual/Outputs/Out_plots//wetweight.jpeg")
+filepath=paste0(userpath,"/ClamF_individual/Outputs/Out_plots//wet_weight.jpeg")
 jpeg(filepath,800,600)
 plot(days,weightSave[,2],ylab="Wet weight (g)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4)
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
@@ -66,12 +67,12 @@ axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # plot limitation functions
-filepath=paste0(userpath,"/ClamF_individual/Outputs/Out_plots//T_limitation.jpeg")
+filepath=paste0(userpath,"/ClamF_individual/Outputs/Out_plots//temperature_response.jpeg")
 jpeg(filepath,800,600)
 ub=max(max(TfunSave[,1]),max(TfunSave[,2]))
-plot(days,TfunSave[,1],ylab="Temperature limitation functions",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
-lines(days,TfunSave[,2],col="blue")
-lines(days,TfunSave[,3],col="green")
+plot(days2,TfunSave[,1],ylab="Temperature response function",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
+lines(days2,TfunSave[,2],col="blue")
+lines(days2,TfunSave[,3],col="green")
 legend("topright",c("Growth limitation","Respiration limitation","Filtration limitation"),fill=c("red","blue","green"))
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
@@ -81,19 +82,25 @@ dev.off()
 filepath=paste0(userpath,"/ClamF_individual/Outputs/Out_plots//metabolism.jpeg")
 jpeg(filepath,800,600)
 ub=max(max(metabSave[,1]),max(metabSave[,2]))
-plot(days,metabSave[,1],ylab="Metabolic rate (J/d)",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
-lines(days,metabSave[,2],col="blue")
+plot(days2,metabSave[,1],ylab="Metabolic rate (J/d)",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
+lines(days2,metabSave[,2],col="blue")
 legend("topright",c("Anabolic rate","Catabolic rate"),fill=c("red","blue"))
-labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
-axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
+labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days2, 1), by = "months")
+axis.Date(side = 1, days2, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # Results save
 
-filepath=paste0(userpath,"/ClamF_individual/Outputs/Out_csv//weight.csv")
+filepath=paste0(userpath,"/ClamF_individual/Outputs/Out_csv//biometries.csv")
 write.csv(weightSave,filepath)
 
-filepath=paste0(userpath,"/ClamF_individual/Outputs/Out_csv//Days_to_comercial_size.csv")
+filepath=paste0(userpath,"/ClamF_individual/Outputs/Out_csv//temperature_response.csv")
+write.csv(TfunSave,filepath)
+
+filepath=paste0(userpath,"/ClamF_individual/Outputs/Out_csv//metabolism.csv")
+write.csv(metabSave,filepath)
+
+filepath=paste0(userpath,"/ClamF_individual/Outputs/Out_csv//Days_to_commercial_size.csv")
 write.csv(daysToSize,filepath)
 
 return(output)

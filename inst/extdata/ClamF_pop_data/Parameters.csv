@@ -1,5 +1,5 @@
 Quantity,Description,Value,Unit,Reference
-Gdmax,Max growth rate on a dry weight base ,0.014,gdw^0.265 d^-1,Solidoro et al 2000
+Gdmax,Max growth rate on a dry weight base ,See file 'Population.csv',,Solidoro et al 2000
 Gwmax,Max growth rate on a wet weight base ,0.031,gww^0.333 d^-1,Solidoro et al 2000
 Rdmax,Max respiration rate on a dry weight base,0.01,d^-1,Solidoro et al 2000
 Rwmax,Max respiration rate on a wet weight base ,0.0081,d^-1,Solidoro et al 2000
@@ -24,7 +24,7 @@ betaV,Coefficient of temperature respiration,0.17,°C^-1,Solidoro et al 2000
 betaR,Coefficient of temperature filtration,0.2,°C^-1,Solidoro et al 2000
 niT,Ratio of energetic demand satisfied by nonplanktonic material,0.25, - ,Pastres et al 2001
 kap,Clorophyll - C in phytoplankton conversion ratio,8.92,mgChla/gC,Pastres et al 2001
-IC,Wet weight initial condition,0.0029,g,
+IC,Wet weight initial condition,See filr 'Population.csv',,
 ti,start of integration,01/03/2010, - ,
 tf,end of integration,15/06/2012, - ,
 CS,Commercial size,40,mm,http://www.ciesm.org/atlas/Ruditapesphilippinarum.html

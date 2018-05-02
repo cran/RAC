@@ -3,7 +3,6 @@
 #' @param userpath the path where folder containing model inputs and outputs is located
 #' @param forcings a list containing model forcings
 #' @return a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3], particulated organic carbon (POC) concentration [mgC/l], particulated organic matter (POM) concentration [mgC/l], total suspended solids (TSS) concentration [mg/l]
-#' @export
 #'
 #' @import matrixStats plotrix rstudioapi
 #'
@@ -33,9 +32,10 @@ TSSint=forcings[[10]]
 Param_matrix=read.csv(paste0(userpath,"/Clam_population/Inputs/Parameters//Parameters.csv"),sep=",")                      # Reading the matrix containing parameters and their description
 
 # Extract parameters and forcing values from parameters matrix and convert to type 'double' the vector contents
-Param=as.double(as.matrix(Param_matrix[1:22,3]))     # Vector containing all parameters
+Param=as.matrix(Param_matrix[1:22,3])    # Vector containing all parameters
+Param=suppressWarnings(as.numeric(Param))
 Dates=Param_matrix[24:25,3]                          # Vector containing the starting and ending date of teh simulation
-IC=as.double(as.matrix(Param_matrix[23,3]))          # Initial weight condition
+#IC=as.double(as.matrix(Param_matrix[23,3]))          # Initial weight condition
 CS=as.double(as.matrix(Param_matrix[26,3]))                # Commercial size
 
 # Prepare data for ODE solution
@@ -43,8 +43,8 @@ t0=min(as.numeric(as.Date(timeT[1], "%d/%m/%Y")), as.numeric(as.Date(timeChl[1],
 timestep=1                                           # Time step for integration [day]
 ti=as.numeric(as.Date(Dates[1], "%d/%m/%Y"))-t0      # Start of integration [day]
 tf=as.numeric(as.Date(Dates[2], "%d/%m/%Y"))-t0      # End of integration [day]
-weight=as.vector(matrix(0,nrow=ti))                  # Initialize vector weight
-weight[ti]=IC                                        # Weight initial value [g]
+#weight=as.vector(matrix(0,nrow=ti))                  # Initialize vector weight
+#weight[ti]=IC                                        # Weight initial value [g]
 times<-cbind(ti, tf, timestep,t0)                       # Vector with integration data
 
 # Detritus
@@ -65,6 +65,7 @@ Management=read.csv(paste0(userpath,"/Clam_population/Inputs/Population_manageme
 
 # Extract population parameters
 meanWd=as.double(as.matrix(Pop_matrix[1,3]))     # [g] Dry weight average
+IC=meanWd
 deltaWd=as.double(as.matrix(Pop_matrix[2,3]))    # [g] Dry weight standard deviation
 Wdlb=as.double(as.matrix(Pop_matrix[3,3]))       # [g] Dry weight lower bound
 meanCRmax=as.double(as.matrix(Pop_matrix[4,3]))  # [l/d gDW] Clearence rate average
@@ -124,10 +125,14 @@ for (i in 1:length(Management[,1])){
   cat(paste0(toString(Management[i,1])," ", toString(Management[i,2]), " " ,toString(Management[i,3])),"individuals\n")
 }
 
+cat(" \n")
+cat("The individual model will be executed ", toString(nruns), " times in order to simulate a population\n")
+cat(" \n")
+
 # Plot to file inserted forcing functions
 
 cat(" \n")
-cat("Forcings are represented in graphs available at the following folder\n")
+cat("Forcings are represented in graphs available at the following folder:\n")
 cat(paste0(userpath,"/Clam_population/Inputs/Forcings_plots\n"))
 
 # Plot Temperature forcing
@@ -181,16 +186,6 @@ filepath=paste0(userpath,"/Clam_population/Inputs/Forcings_plots//TSM.jpeg")
 jpeg(filepath,800,600)
 days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1)
 plot(days, TSSintsave, ylab="TSM (mg/l)", xlab="", xaxt = "n",type="l",cex.lab=1.4)
-labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
-axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
-dev.off()
-# Plot detritus forcing
-DTintsave=DTint[ti:tf]
-currentpath=getwd()
-filepath=paste0(userpath,"/Clam_population/Inputs/Forcings_plots//DT.jpeg")
-jpeg(filepath,800,600)
-days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1)
-plot(days, DTintsave, ylab="DT (mgC/l)", xlab="", xaxt = "n",type="l",cex.lab=1.4)
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()

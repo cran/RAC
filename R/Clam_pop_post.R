@@ -41,8 +41,10 @@ LSave=L_stat[,ti:tf]
 ASave=A_stat[,ti:tf]
 CSave=C_stat[,ti:tf]
 
-fgT=fgT[ti:tf]
-frT=frT[ti:tf]
+fgT=fgT[(ti+1):tf]
+frT=frT[(ti+1):tf]
+
+tfunSave=cbind(fgT,frT)
 
 N=N[ti:tf]
 
@@ -90,8 +92,8 @@ output=list(WdSave,WwSave,LSave,ASave,CSave,fgT,frT,N,daysToSize)
 days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1) # create a dates vector to plot results
 currentpath=getwd()
 
-# Plot weight
-filepath=paste0(userpath,"/Clam_population/Outputs/Out_plots//Dryweight.jpeg")
+# Plot dry weight
+filepath=paste0(userpath,"/Clam_population/Outputs/Out_plots//dry_weight.jpeg")
 jpeg(filepath,800,600)
 ub=WdSave[1,]+WdSave[2,]
 lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
@@ -99,7 +101,7 @@ for (i in 1:length(WdSave[1,]-WdSave[2,])){
 lb[i]=max(WdSave[1,i]-WdSave[2,i],0)
 }
 maxub=max(WdSave[1,]+WdSave[2,])
-plot(days,WdSave[1,],ylab="Weight (g)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
+plot(days,WdSave[1,],ylab="Dry weight (g)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
 polygon(c(days,rev(days)),c(lb,rev(ub)),col="grey90",border=FALSE)
 lines(days,WdSave[1,],lwd=2,col="red")
 lines(days,lb,col="blue")
@@ -108,8 +110,26 @@ labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "mon
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
+# Plot wet weight
+filepath=paste0(userpath,"/Clam_population/Outputs/Out_plots//wet_weight.jpeg")
+jpeg(filepath,800,600)
+ub=WwSave[1,]+WwSave[2,]
+lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
+for (i in 1:length(WwSave[1,]-WwSave[2,])){
+  lb[i]=max(WwSave[1,i]-WwSave[2,i],0)
+}
+maxub=max(WwSave[1,]+WwSave[2,])
+plot(days,WwSave[1,],ylab="Wet weight (g)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
+polygon(c(days,rev(days)),c(lb,rev(ub)),col="grey90",border=FALSE)
+lines(days,WwSave[1,],lwd=2,col="red")
+lines(days,lb,col="blue")
+lines(days,ub,col="blue")
+labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
+axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
+dev.off()
+
 # Plot length
-filepath=paste0(userpath,"/Clam_population/Outputs/Out_plots//Length.jpeg")
+filepath=paste0(userpath,"/Clam_population/Outputs/Out_plots//length.jpeg")
 jpeg(filepath,800,600)
 ub=LSave[1,]+LSave[2,]
 lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
@@ -127,11 +147,13 @@ axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # plot limitation functions
-filepath=paste0(userpath,"/Clam_population/Outputs/Out_plots//Tfun.jpeg")
+days2 <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti) # create a dates vector to plot results
+
+filepath=paste0(userpath,"/Clam_population/Outputs/Out_plots//temperature_response.jpeg")
 jpeg(filepath,800,600)
 ub=max(max(fgT),max(frT))
-plot(days,fgT,ylab="Temperature limitation functions",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
-lines(days,frT,col="blue")
+plot(days2,fgT,ylab="Temperature response function",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
+lines(days2,frT,col="blue")
 legend("topright",c("Anabolism limitation","Catabolism limitation"),fill=c("red","blue"))
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
@@ -160,25 +182,34 @@ legend("topleft",c("Anabolic rate","Catabolic rate"),fill=c("red","blue"))
 dev.off()
 
 # plot population dynamics
-filepath=paste0(userpath,"/Clam_population/Outputs/Out_plots//Population.jpeg")
+filepath=paste0(userpath,"/Clam_population/Outputs/Out_plots//population.jpeg")
 jpeg(filepath,800,600)
-plot(days, N, ylab="Individuals", xlab="", xaxt = "n",type="l",cex.lab=1.4)
+plot(days, N, ylab="Number of individuals", xlab="", xaxt = "n",type="l",cex.lab=1.4)
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # Results save
 
-filepath=paste0(userpath,"/Clam_population/Outputs/Out_csv//Dryweight.csv")
+filepath=paste0(userpath,"/Clam_population/Outputs/Out_csv//dry_weight.csv")
 write.csv(t(WdSave),filepath)
 
-filepath=paste0(userpath,"/Clam_population/Outputs/Out_csv//Wetweight.csv")
+filepath=paste0(userpath,"/Clam_population/Outputs/Out_csv//wet_weight.csv")
 write.csv(t(WwSave),filepath)
 
-filepath=paste0(userpath,"/Clam_population/Outputs/Out_csv//Length.csv")
+filepath=paste0(userpath,"/Clam_population/Outputs/Out_csv//length.csv")
 write.csv(t(LSave),filepath)
 
-filepath=paste0(userpath,"/Clam_population/Outputs/Out_csv//Days_to_comercial_size.csv")
+filepath=paste0(userpath,"/Clam_population/Outputs/Out_csv//temperature_response.csv")
+write.csv(t(tfunSave),filepath)
+
+filepath=paste0(userpath,"/Clam_population/Outputs/Out_csv//anabolic_rate.csv")
+write.csv(ASave,filepath)
+
+filepath=paste0(userpath,"/Clam_population/Outputs/Out_csv//catabolic_rate.csv")
+write.csv(CSave,filepath)
+
+filepath=paste0(userpath,"/Clam_population/Outputs/Out_csv//Days_to_commercial_size.csv")
 write.csv(daysToSize,filepath)
 
 return(output)

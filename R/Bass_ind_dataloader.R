@@ -6,17 +6,17 @@
 #'
 #' @import matrixStats plotrix rstudioapi
 #'
-#' @import stats utils
+#'
 #'
 
 Bass_ind_dataloader<-function(userpath) {
 
   # Reads forcing files
-  Ttem=read.csv(paste0(userpath,"/Bass_individual/Inputs/Forcings//Water_temperature.csv"),sep=",",header=FALSE)        # Reading the temperature time series (daily series) data
-  DaF=read.csv(paste0(userpath,"/Bass_individual/Inputs/Forcings//Feeding.csv"),sep=",",header=FALSE)                   # Reading the individual feeding dose time series (daily series) data
+  Ttem=utils::read.csv(paste0(userpath,"/Bass_individual/Inputs/Forcings//Water_temperature.csv"),sep=",",header=FALSE)        # Reading the temperature time series (daily series) data
+  DaF=utils::read.csv(paste0(userpath,"/Bass_individual/Inputs/Forcings//Feeding.csv"),sep=",",header=FALSE)                   # Reading the individual feeding dose time series (daily series) data
 
   # Reads integration extremes
-  Param_matrix=read.csv(paste0(userpath,"/Bass_individual/Inputs/Parameters//Parameters.csv"),sep=",")                    # Reading the matrix containing parameters and their description
+  Param_matrix=utils::read.csv(paste0(userpath,"/Bass_individual/Inputs/Parameters//Parameters.csv"),sep=",")                    # Reading the matrix containing parameters and their description
 
   #Extracts vectors from the forcing files
   timeT=as.matrix(Ttem[,1])                     # Vector of the times of Temperature measurements
@@ -37,9 +37,9 @@ Bass_ind_dataloader<-function(userpath) {
   # Interpolation of Temperature and Feeding forcings
   Ttem=as.vector(matrix(0,nrow=ti-1))              # Initialize vector Tint
   Gtem=as.vector(matrix(0,nrow=ti-1))              # Initialize vector Gint
-  i=ti:tf+1                                               # Interpolation base points
-  Ttem2=approx(timeTseries,Temperature,xout=i)     # T interpolation according to base points
-  Gtem2=approx(timeGseries,G,xout=i)               # G interpolation according to base points
+  i=ti:tf+1                                              # Interpolation base points
+  Ttem2=stats::approx(timeTseries,Temperature,xout=i)     # T interpolation according to base points
+  Gtem2=stats::approx(timeGseries,G,xout=i)               # G interpolation according to base points
   Tint=c(Ttem, Ttem2$y)                            # Interpolated T values starting at t0
   Gint=c(Gtem, Gtem2$y)                            # Interpolated G values starting at t0
 

@@ -1,5 +1,5 @@
 Used in script,Description,Value,Unit,Reference
-ingmax,Maximum ingestion rate,0.05,g/ gfish d,Stirling 1977 Ballestrazzi et al 1998 Peres et al 1999 Lupatsch et al 2001 Person-Le Ruyet et al 2004 Moreira et al 2008
+ingmax,Maximum ingestion rate,See file 'Population.csv',,Stirling 1977 Ballestrazzi et al 1998 Peres et al 1999 Lupatsch et al 2001 Person-Le Ruyet et al 2004 Moreira et al 2008
 alpha,Feeding catabolism coefficient,0.3, - ,Stirling 1977
 betaprot,Assimilation coefficient for protein,0.884, - ,Spyridakis et al 1989 in Dosdat 2001 Moreira et al 2008
 betalip,Assimilation coefficient for lipid,0.967, - ,Spyridakis et al 1989 in Dosdat 2001 Moreira et al 2008
@@ -22,5 +22,5 @@ k,Weight exponent for energy content,0.107, - ,Lupatsch et al 2003
 eff,Food ingestion efficiency,0.95, - ,Empirical value provided by the farmers
 ti,Start of the integration,01/11/2010,,
 tf,End of the integration ,30/07/2012,,
-IC,Initial condition,40,g,
+IC,Initial condition,See file 'Population.csv',,
 CS,Commercial size,450,g,http://www.fao.org/fishery/culturedspecies/Dicentrarchus_labrax/en

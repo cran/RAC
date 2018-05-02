@@ -80,8 +80,11 @@ A=as.matrix(matrix(0,nrow=nruns,ncol=tf))
 C=as.matrix(matrix(0,nrow=nruns,ncol=tf))
 
 O2=as.matrix(matrix(0,nrow=nruns,ncol=tf))
+NH4=as.matrix(matrix(0,nrow=nruns,ncol=tf))
 
 # Loop for ODE solution
+
+pb <- txtProgressBar(min = 0, max = nruns, style = 3)
 
 for (ii in 1:nruns){
 
@@ -109,6 +112,7 @@ for (ii in 1:nruns){
   Tfun=output[[5]]
   metab=output[[6]]
   cons=output[[7]]
+  amm=output[[8]]
 
   # Saves results of each run to compute statistics
   Wb[ii,1:length(weight[,1])]=weight[,1]        # Somatic tissue dry weight [g]
@@ -133,8 +137,13 @@ for (ii in 1:nruns){
   C[ii,1:length(metab[,2])]=metab[,2]     # Fasting catabolism [J/d]
 
   O2[ii,1:length(cons)]=cons  # Oxygen consumtion rate
+  NH4[ii,1:length(amm)]=amm   # ammonium release
+
+  setTxtProgressBar(pb, ii)
 
 } # Close population loop
+
+close(pb)
 
 # Temperaure limitation functions
 
@@ -165,8 +174,9 @@ A_stat=rbind(colMeans(A), colSds(A))
 C_stat=rbind(colMeans(C), colSds(C))
 
 O2_stat=rbind(colMeans(O2), colSds(O2))
+NH4_stat=rbind(colMeans(NH4), colSds(NH4))
 
-output=list(Wb_stat,R_stat,Wd_stat,W_stat,L_stat,fecC_stat,fecN_stat,fecP_stat,psC_stat,psN_stat,psP_stat,Cmyt_stat,Nmyt_stat,Pmyt_stat,A_stat,C_stat,O2_stat,fgT,frT)
+output=list(Wb_stat,R_stat,Wd_stat,W_stat,L_stat,fecC_stat,fecN_stat,fecP_stat,psC_stat,psN_stat,psP_stat,Cmyt_stat,Nmyt_stat,Pmyt_stat,A_stat,C_stat,O2_stat,NH4_stat,fgT,frT)
 return(output)
 
 }

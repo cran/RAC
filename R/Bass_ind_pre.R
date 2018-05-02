@@ -3,7 +3,6 @@
 #' @param userpath the path where folder containing model inputs and outputs is located
 #' @param forcings a list containing model forcings
 #' @return a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees] and feeding rate [g/individual x d]
-#' @export
 #'
 #' @import matrixStats plotrix rstudioapi
 #'
@@ -15,6 +14,7 @@ Bass_ind_pre<-function(userpath,forcings){
 rm(list=ls())       # Clean workspace
 
 cat("Data preprocessing")
+cat(" \n")
 
 # Extracts forcings values from the list
 timeT=forcings[[1]]
@@ -47,23 +47,12 @@ Pcont=Food[1]       # [-] Percentage of proteins in the food
 Lcont=Food[2]       # [-] Percentage of lipids in the food
 Ccont=Food[3]       # [-] Percentage of carbohydrates in the food
 
-# Check if forcings are Ok with integration extremes
-if ((ti<as.numeric(as.Date(timeT[1], "%d/%m/%Y")))|ti<as.numeric(as.Date(timeG[1], "%d/%m/%Y"))) {
-  cat("ERROR: forcings are beginning after the specified integration start\n")
-  cat("Impossible to proceed with interpolation\n")
-}
-
-if ((ti>as.numeric(as.Date(timeT[length(timeT)], "%d/%m/%Y")))|ti>as.numeric(as.Date(timeG[length(timeG)], "%d/%m/%Y"))) {
-  cat("ERROR: forcing are ending before the specified integration end\n")
-  cat("Impossible to proceed with interpolation\n")
-}
-
 # Print to screen inserted parameters
 
 cat(" \n")
 cat('The model will be executed with the following parameters:\n');
 cat(" \n")
-for (i in 2:21){
+for (i in 1:21){
 cat(paste0(toString(Param_matrix[i,2]), ": ", toString(Param_matrix[i,3]), " " ,toString(Param_matrix[i,4])),"\n")
 }
 

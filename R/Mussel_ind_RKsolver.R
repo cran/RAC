@@ -62,12 +62,13 @@ Mussel_ind_RKsolver <- function(Param, times, IC, Tint, Phyint, DTint, POCint, C
   Wtot[ti]=atot*Wd[ti]                       # Mussel total weight (with shell) as a function of dry weight [g]
 
   # initialize output
-  pfec=as.matrix(matrix(0,nrow=ti,ncol=3))      # Initialize pseudofecies vector
+  pfec=as.matrix(matrix(0,nrow=ti,ncol=3))     # Initialize pseudofecies vector
   fec=as.matrix(matrix(0,nrow=ti,ncol=3))      # Initialize fecies vector
   comp=as.matrix(matrix(0,nrow=ti,ncol=3))     # Initialize mytilus composition vector
   tfun=as.matrix(matrix(0,nrow=ti,ncol=2))     # Initialize temperature limitations vector
   metab=as.matrix(matrix(0,nrow=ti,ncol=2))    # Initialize metabolic rates vector
   cons=as.matrix(matrix(0,nrow=ti,ncol=1))     # Initialize oxygen consumption vector
+  amm=as.matrix(matrix(0,nrow=ti,ncol=1))      # Initialize ammonium production vector
 
   for (t in ti:(tf-1)) {
 
@@ -182,6 +183,7 @@ Mussel_ind_RKsolver <- function(Param, times, IC, Tint, Phyint, DTint, POCint, C
   temperaturefun=output[[6]]
   metabolism=output[[7]]
   consumption=output[[8]]
+  ammonium=output[[9]]
 
   # Outputs creation
   weight=rbind(Wb,R,Wd,Wtot,L)
@@ -191,10 +193,11 @@ Mussel_ind_RKsolver <- function(Param, times, IC, Tint, Phyint, DTint, POCint, C
   tfun=rbind(tfun,temperaturefun)
   metab=rbind(metab,metabolism)
   cons=rbind(cons,consumption)
+  amm=rbind(amm,ammonium)
 
 }  # Close cycle
 
-  output=list(weight,pfec,fec,comp,tfun,metab,cons)
+  output=list(weight,pfec,fec,comp,tfun,metab,cons,amm)
   return(output) # Mussel_ind_RKsolver outputs
 
 } # Close function

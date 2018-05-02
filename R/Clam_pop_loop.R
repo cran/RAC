@@ -62,6 +62,8 @@ C=as.matrix(matrix(0,nrow=nruns,ncol=tf))   # Initializ<e catabolic rate vector
 
 # Loop for ODE solution
 
+pb <- txtProgressBar(min = 0, max = nruns, style = 3)
+
 for (ii in 1:nruns){
 
   # Weight initialization
@@ -93,7 +95,11 @@ for (ii in 1:nruns){
   A[ii,1:length(metab[,1])]=metab[,1]     # Net anabolism [J/d]
   C[ii,1:length(metab[,2])]=metab[,2]     # Fasting catabolism [J/d]
 
+  setTxtProgressBar(pb, ii)
+
 } # Close population loop
+
+close(pb)
 
 # Temperaure limitation functions
 

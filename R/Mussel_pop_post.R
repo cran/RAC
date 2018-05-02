@@ -38,8 +38,9 @@ Pmyt_stat=output[[14]]
 A_stat=output[[15]]
 C_stat=output[[16]]
 O2_stat=output[[17]]
-fgT=output[[18]]
-frT=output[[19]]
+NH4_stat=output[[18]]
+fgT=output[[19]]
+frT=output[[20]]
 
 # Adjusts results acoording with integration extremes
 # now day 1 coincides with ti
@@ -66,9 +67,12 @@ ASave=A_stat[,ti:tf]
 CSave=C_stat[,ti:tf]
 
 O2Save=O2_stat[,ti:tf]
+NH4Save=NH4_stat[,ti:tf]
 
-fgT=fgT[ti:tf]
-frT=frT[ti:tf]
+fgT=fgT[(ti+1):tf]
+frT=frT[(ti+1):tf]
+
+tfunSave=cbind(fgT,frT)
 
 N=N[ti:tf]
 
@@ -116,7 +120,7 @@ output=list(WbSave,RSave,WdSave,WSave,LSave,fecCSave,fecNSave,fecPSave,psCSave,p
 days <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti+1) # create a dates vector to plot results
 
 # Plot dry weight
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//Dryweight.jpeg")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//Dry_weight.jpeg")
 jpeg(filepath,800,600)
 plot(days,WdSave[1,],ylab="Mean dry weight (g)", xlab=" ",xaxt = "n",type="l",lwd=2,cex.lab=1.4,col="red")
 lines(days,WbSave[1,],lwd=2,col="green")
@@ -145,7 +149,7 @@ axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # Plot total weight
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//Totweight.jpeg")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//Total_weight.jpeg")
 jpeg(filepath,800,600)
 ub=WSave[1,]+WSave[2,]
 lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
@@ -163,7 +167,7 @@ axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # Plot pseudofaecies C
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//pseudofaecesC.jpeg")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//pseudofaeces_C.jpeg")
 jpeg(filepath,800,600)
 ub=psCSave[1,]+psCSave[2,]
 lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
@@ -181,7 +185,7 @@ axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # Plot pseudofaecies N
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//pseudofaecesN.jpeg")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//pseudofaeces_N.jpeg")
 jpeg(filepath,800,600)
 ub=psNSave[1,]+psNSave[2,]
 lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
@@ -199,7 +203,7 @@ axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # Plot pseudofaecies P
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//pseudofaecesP.jpeg")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//pseudofaeces_P.jpeg")
 jpeg(filepath,800,600)
 ub=psPSave[1,]+psPSave[2,]
 lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
@@ -217,7 +221,7 @@ axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # Plot faeces C
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//faecesC.jpeg")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//faeces_C.jpeg")
 jpeg(filepath,800,600)
 ub=fecCSave[1,]+fecCSave[2,]
 lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
@@ -235,7 +239,7 @@ axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # Plot faeces N
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//faecesN.jpeg")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//faeces_N.jpeg")
 jpeg(filepath,800,600)
 ub=fecNSave[1,]+fecNSave[2,]
 lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
@@ -253,7 +257,7 @@ axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # Plot faeces P
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//faecesP.jpeg")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//faeces_P.jpeg")
 jpeg(filepath,800,600)
 ub=fecPSave[1,]+fecPSave[2,]
 lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
@@ -271,7 +275,7 @@ axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # Plot mussel C content
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//Ccontent.jpeg")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//C_content.jpeg")
 jpeg(filepath,800,600)
 ub=CmytSave[1,]+CmytSave[2,]
 lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
@@ -279,7 +283,7 @@ for (i in 1:length(CmytSave[1,]-CmytSave[2,])){
   lb[i]=max(CmytSave[1,i]-CmytSave[2,i],0)
 }
 maxub=max(CmytSave[1,]+CmytSave[2,])
-plot(days,CmytSave[1,],ylab="Mytilus C content (g)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
+plot(days,CmytSave[1,],ylab="Mussel C content (g)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
 polygon(c(days,rev(days)),c(lb,rev(ub)),col="grey90",border=FALSE)
 lines(days,CmytSave[1,],lwd=2,col="red")
 lines(days,lb,col="blue")
@@ -289,7 +293,7 @@ axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # Plot mussel N content
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//Ncontent.jpeg")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//N_content.jpeg")
 jpeg(filepath,800,600)
 ub=NmytSave[1,]+NmytSave[2,]
 lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
@@ -297,7 +301,7 @@ for (i in 1:length(NmytSave[1,]-NmytSave[2,])){
   lb[i]=max(NmytSave[1,i]-NmytSave[2,i],0)
 }
 maxub=max(NmytSave[1,]+NmytSave[2,])
-plot(days,NmytSave[1,],ylab="Mytilus N content (g)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
+plot(days,NmytSave[1,],ylab="Mussel N content (g)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
 polygon(c(days,rev(days)),c(lb,rev(ub)),col="grey90",border=FALSE)
 lines(days,NmytSave[1,],lwd=2,col="red")
 lines(days,lb,col="blue")
@@ -307,7 +311,7 @@ axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # Plot mussel P content
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//Pcontent.jpeg")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//P_content.jpeg")
 jpeg(filepath,800,600)
 ub=PmytSave[1,]+PmytSave[2,]
 lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
@@ -315,7 +319,7 @@ for (i in 1:length(PmytSave[1,]-PmytSave[2,])){
   lb[i]=max(PmytSave[1,i]-PmytSave[2,i],0)
 }
 maxub=max(PmytSave[1,]+PmytSave[2,])
-plot(days,PmytSave[1,],ylab="Mytilus P content (g)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
+plot(days,PmytSave[1,],ylab="Mussel P content (g)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
 polygon(c(days,rev(days)),c(lb,rev(ub)),col="grey90",border=FALSE)
 lines(days,PmytSave[1,],lwd=2,col="red")
 lines(days,lb,col="blue")
@@ -326,7 +330,7 @@ dev.off()
 
 
 # Plot oxygen consumption
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//Cons.jpeg")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//O2_consumption.jpeg")
 jpeg(filepath,800,600)
 ub=O2Save[1,]+O2Save[2,]
 lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
@@ -343,12 +347,32 @@ labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "mon
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
+# Plot ammonium release
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//NH4_release.jpeg")
+jpeg(filepath,800,600)
+ub=NH4Save[1,]+NH4Save[2,]
+lb=as.matrix(matrix(0,nrow=length(ub),ncol=1))
+for (i in 1:length(NH4Save[1,]-NH4Save[2,])){
+  lb[i]=max(NH4Save[1,i]-NH4Save[2,i],0)
+}
+maxub=max(NH4Save[1,]+NH4Save[2,])
+plot(days,NH4Save[1,],ylab="NH4 release (kg/d)", xlab=" ",xaxt = "n",type="l",cex.lab=1.4,col="red",ylim=c(0,maxub+0.05*maxub))
+polygon(c(days,rev(days)),c(lb,rev(ub)),col="grey90",border=FALSE)
+lines(days,NH4Save[1,],lwd=2,col="red")
+lines(days,lb,col="blue")
+lines(days,ub,col="blue")
+labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
+axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
+dev.off()
+
 # plot limitation functions
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//Tfun.jpeg")
+days2 <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), by = "days", length = tf-ti) # create a dates vector to plot results
+
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots//temperature_response.jpeg")
 jpeg(filepath,800,600)
 ub=max(max(fgT),max(frT))
-plot(days,fgT,ylab="Temperature limitation functions",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
-lines(days,frT,col="blue")
+plot(days2,fgT,ylab="Temperature response function",xlab=" ",xaxt = "n",cex.lab=1.4,col="red",type="l",ylim=c(0,ub+0.05*ub))
+lines(days2,frT,col="blue")
 legend("topright",c("Anabolism limitation","Catabolism limitation"),fill=c("red","blue"))
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
@@ -379,47 +403,59 @@ dev.off()
 # plot population dynamics
 filepath=paste0(userpath,"/Mussel_population/Outputs/Out_plots/Population.jpeg")
 jpeg(filepath,800,600)
-plot(days, N, ylab="Individuals", xlab="", xaxt = "n",type="l",cex.lab=1.4)
+plot(days, N, ylab="Number of individuals", xlab="", xaxt = "n",type="l",cex.lab=1.4)
 labDates <- seq(as.Date(Dates[1], format = "%d/%m/%Y"), tail(days, 1), by = "months")
 axis.Date(side = 1, days, at = labDates, format = "%d %b %y", las = 2)
 dev.off()
 
 # Results save
 
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//Dryweight.csv")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//Dry_weight.csv")
 write.csv(t(WdSave),filepath)
 
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//Totalweight.csv")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//Total_weight.csv")
 write.csv(t(WSave),filepath)
 
 filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//Length.csv")
 write.csv(t(LSave),filepath)
 
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//fecC.csv")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//faeces_C.csv")
 write.csv(t(fecCSave),filepath)
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//fecN.csv")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//faeces_N.csv")
 write.csv(t(fecNSave),filepath)
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//fecP.csv")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//faeces_P.csv")
 write.csv(t(fecPSave),filepath)
 
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//psC.csv")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//pseudofaeces_C.csv")
 write.csv(t(psCSave),filepath)
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//psN.csv")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//pseudofaeces_N.csv")
 write.csv(t(psNSave),filepath)
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//psP.csv")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//pseudofaeces_P.csv")
 write.csv(t(psPSave),filepath)
 
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//Cmyt.csv")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//C_content.csv")
 write.csv(t(CmytSave),filepath)
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//Nmyt.csv")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//N_content.csv")
 write.csv(t(NmytSave),filepath)
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//Pmyt.csv")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//P_content.csv")
 write.csv(t(PmytSave),filepath)
 
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//Cons.csv")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//O2_consumption.csv")
 write.csv(t(O2Save),filepath)
 
-filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//Days_to_comercial_size.csv")
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//NH4_release.csv")
+write.csv(t(NH4Save),filepath)
+
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//temperature_response.csv")
+write.csv(t(tfunSave),filepath)
+
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//anabolic_rate.csv")
+write.csv(ASave,filepath)
+
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//catabolic_rate.csv")
+write.csv(CSave,filepath)
+
+filepath=paste0(userpath,"/Mussel_population/Outputs/Out_csv//Days_to_commercial_size.csv")
 write.csv(daysToSize,filepath)
 
 return(output)

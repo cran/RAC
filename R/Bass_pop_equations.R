@@ -95,10 +95,14 @@ Bass_pop_equations <- function(Param, N, Temp, G, Food, weight){
   catab=epsO2*k0*frT*(weight^n)*omega    # Fasting catabolic rate [J/d]
   metab=cbind(anab,catab)
 
+  # O2 and NH4 produced
+  O2=catab/epsO2*N/1e3          # O2 consumed [kg02/d]
+  NH4=O2*0.06*N/1e3             # NH4 produced [kgN/d]
+
   # Mass balance
   dw = (anab-catab)/epstiss   # Weight increment [g/d]
 
   # Function outputs
-  output=list(dw,exc,wst,ing,ingvero,Tfun,metab)
+  output=list(dw,exc,wst,ing,ingvero,Tfun,metab, O2, NH4)
   return(output)
 }

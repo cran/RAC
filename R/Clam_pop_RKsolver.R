@@ -19,9 +19,6 @@
 
 Clam_pop_RKsolver <- function(Param, times, IC, Tint, Phyint, DTint, POCint, POMint, TSSint){
 
-
-  cat("ODE solution\n")
-
   # Integration extremes definition
   ti=times[1]           # Integration beginning
   tf=times[2]           # Integration end

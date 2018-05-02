@@ -78,7 +78,7 @@ Mussel_ind_equations <- function(Param, Tint, Phyint, DTint, POCint, Ccont, Ncon
 
     C=Rmax*fc*epsO2*Wb^n       # Daily catabolism [J/d]
     O2=(Rmax*fc*Wb^n)/1e3      # Oxygen consumed [gO2/d]
-    NH4=(O2*epsNO)/1e3             # Nitrogen excreted [kgNH4-N/d]
+    NH4=(O2*epsNO)/1e3         # Nitrogen excreted [kgNH4-N/d]
 
 
     # ANABOLISM
@@ -160,9 +160,10 @@ Mussel_ind_equations <- function(Param, Tint, Phyint, DTint, POCint, Ccont, Ncon
   tfun=cbind(fa, fc)
   metab=cbind(A, C)
   cons=O2
+  amm=NH4*1e3
 
   # Assign outputs to a list
-  output=list(dWb,dR,pfec,fec,cont,tfun,metab,cons)
+  output=list(dWb,dR,pfec,fec,cont,tfun,metab,cons,amm)
   return(output) # Mussel_ind_equations output
 
 } # end function

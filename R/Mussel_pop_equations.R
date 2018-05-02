@@ -80,7 +80,7 @@ Mussel_pop_equations <- function(Param, N, Tint, Phyint, DTint, POCint, Ccont, N
 
     C=Rmax*fc*epsO2*Wb^n       # Daily catabolism [J/d]
     O2=(Rmax*fc*Wb^n*N)/1e6      # Oxygen consumed [kgO2/d]
-    NH4=(O2*epsNO)/1e3             # Nitrogen excreted [kgNH4-N /d]
+    NH4=(O2*epsNO)            # Nitrogen excreted [kgNH4-N /d]
 
 
     # ANABOLISM
@@ -163,9 +163,10 @@ Mussel_pop_equations <- function(Param, N, Tint, Phyint, DTint, POCint, Ccont, N
   tfun=cbind(fa, fc)
   metab=cbind(A, C)
   cons=O2
+  amm=NH4
 
   # Assign outputs to a list
-  output=list(dWb,dR,pfec,fec,cont,tfun,metab,cons)
+  output=list(dWb,dR,pfec,fec,cont,tfun,metab,cons,amm)
   return(output)
 
 } # end function
