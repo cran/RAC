@@ -9,7 +9,7 @@ Bass_spatial_loop(userpath, forcings)
 \arguments{
 \item{userpath}{the path where the working folder is located}
 
-\item{forcings}{a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees] and feeding rate [g/individual x d]}
+\item{forcings}{a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3], particulated organic carbon (POC) concentration [mgC/l] and its characterization in terms of C/P and N/P molar ratios, particulated organic matter (POM) concentration [mgC/l], total suspended solids (TSS) concentration [mg/l]}
 }
 \value{
 a list containing the outputs that main script saves to .nc; .csv and .asc files
@@ -17,4 +17,3 @@ a list containing the outputs that main script saves to .nc; .csv and .asc files
 \description{
 Solves the bioenergetic balance for Bass
 }
-

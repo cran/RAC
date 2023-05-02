@@ -10,7 +10,7 @@
 #' @return a list containing the fish weight, proteines, lipids and carbohydrates wasted or produced with excretions, potential and actual ingestion rates, temperature limitation functions and metabolic rates
 #'
 #' @import matrixStats plotrix rstudioapi
-#'
+#'@export
 #' @import stats
 #'
 

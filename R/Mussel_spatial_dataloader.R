@@ -6,9 +6,7 @@
 #'
 #' @import matrixStats plotrix rstudioapi
 #'
-#' @importFrom raster stack
-#' @importFrom utils read.table write.table
-#' @importFrom stats approx
+#' @import stats utils
 #'
 
 Mussel_spatial_dataloader<-function(userpath) {
@@ -105,7 +103,7 @@ Mussel_spatial_dataloader<-function(userpath) {
   sst_export <- pixel_sst[-c(1,2),]
   #colnames(pixel_sst) <- gsub("V", "sst", colnames(pixel_sst))
   write.csv(sst_export,paste0(userpath,"/Mussel_spatial/Inputs/Spatial forcings//sst.csv"))
-  sst <- read.csv(paste0(userpath,"/Mussel_spatial/Inputs/Spatial forcings//sst.csv"),header=TRUE)
+  sst <- read.csv(paste0(userpath,"/Mussel_spatial/Inputs/Spatial forcings//sst.csv"),header = TRUE)
   sst <- sst[,-(1)]
   colnames(sst) <- gsub("V", "sst", colnames(sst))
 
@@ -113,7 +111,7 @@ Mussel_spatial_dataloader<-function(userpath) {
   chla_export <- pixel_chla[-c(1,2),]
   #colnames(pixel_chla) <- gsub("V", "chl", colnames(pixel_chla))
   write.csv(chla_export,paste0(userpath,"/Mussel_spatial/Inputs/Spatial forcings//chl.csv"))
-  chl <- read.csv(paste0(userpath,"/Mussel_spatial/Inputs/Spatial forcings//chl.csv"),header=TRUE)
+  chl <- read.csv(paste0(userpath,"/Mussel_spatial/Inputs/Spatial forcings//chl.csv"),header = TRUE)
   chl <- chl[,-(1)]
   colnames(chl) <- gsub("V", "chl", colnames(chl))
 

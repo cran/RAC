@@ -6,11 +6,7 @@
 #'
 #' @import matrixStats plotrix rstudioapi
 #'
-#' @importFrom raster stack
-#' @importFrom utils read.table write.table
-#' @importFrom stats approx
-#'
-#'
+#' @import stats utils
 #'
 
 Bass_spatial_dataloader<-function(userpath) {
@@ -70,7 +66,7 @@ Bass_spatial_dataloader<-function(userpath) {
   sst_export <- pixel_sst[-c(1,2),]
   #colnames(pixel_sst) <- gsub("V", "sst", colnames(pixel_sst))
   write.csv(sst_export,paste0(userpath,"/Bass_spatial/Inputs/Spatial forcings//sst.csv"))
-  sst <- read.csv(paste0(userpath,"/Bass_spatial/Inputs/Spatial forcings//sst.csv"),header=TRUE)
+  sst <- read.csv(paste0(userpath,"/Bass_spatial/Inputs/Spatial forcings//sst.csv"),header = TRUE)
   sst <- sst[,-(1)]
   colnames(sst) <- gsub("V", "sst", colnames(sst))
 

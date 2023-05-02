@@ -3,6 +3,7 @@
 #' @param userpath the path where folder containing model inputs and outputs is located
 #' @param forcings a list containing model forcings
 #' @return a list containing the time series in the odd positions and realted forcings in the even positions. Forcings returned are: Water temperature [Celsius degrees], Chlorophyll a concentration [mgChl-a/m^3]
+#' @export
 #'
 #' @import matrixStats plotrix rstudioapi
 #'
@@ -31,7 +32,7 @@ Param_matrix=read.csv(paste0(userpath,"/ClamF_population/Inputs/Parameters//Para
 Param=as.matrix(Param_matrix[1:25,3])     # Vector containing all parameters
 Param=suppressWarnings(as.numeric(Param))
 Dates=Param_matrix[27:28,3]                          # Vector containing the starting and ending date of teh simulation
-IC=as.double(as.matrix(Param_matrix[26,3]))          # Initial weight condition
+#IC=as.double(as.matrix(Param_matrix[26,3]))          # Initial weight condition
 CS=as.double(as.matrix(Param_matrix[29,3]))                # Commercial size
 
 # Prepare data for ODE solution

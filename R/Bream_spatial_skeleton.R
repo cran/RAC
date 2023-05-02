@@ -28,7 +28,7 @@ Bream_spatial_skeleton<-function(userpath){
   file.copy(paste0(workingpath,"/extdata/Mussel_spatial_data//SST.nc"),paste0(userpath,"/Bream_spatial/Inputs/Spatial forcings"), overwrite=TRUE)
   file.copy(paste0(workingpath,"/extdata/Bream_spatial_data//Feeding.csv"),paste0(userpath,"/Bream_spatial/Inputs/Point forcings"), overwrite=TRUE)
   file.copy(paste0(workingpath,"/extdata/Bream_spatial_data//Food_characterization.csv"),paste0(userpath,"/Bream_spatial/Inputs/Point forcings"), overwrite=TRUE)
-  file.copy(paste0(workingpath,"/extdata/Bream_spatial_data//Spatial_dates.csv"),paste0(userpath,"/Bream_spatial/Inputs/Spatial forcings"), overwrite=TRUE)
+  file.copy(paste0(workingpath,"/extdata/Mussel_spatial_data//Spatial_dates.csv"),paste0(userpath,"/Bream_spatial/Inputs/Spatial forcings"), overwrite=TRUE)
 
   cat("Folder skeleton for Bream spatialized model created at:\n")
   cat(userpath)

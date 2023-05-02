@@ -28,7 +28,7 @@ Bass_spatial_skeleton<-function(userpath){
   file.copy(paste0(workingpath,"/extdata/Mussel_spatial_data//SST.nc"),paste0(userpath,"/Bass_spatial/Inputs/Spatial forcings"), overwrite=TRUE)
   file.copy(paste0(workingpath,"/extdata/Bass_spatial_data//Feeding.csv"),paste0(userpath,"/Bass_spatial/Inputs/Point forcings"), overwrite=TRUE)
   file.copy(paste0(workingpath,"/extdata/Bass_spatial_data//Food_characterization.csv"),paste0(userpath,"/Bass_spatial/Inputs/Point forcings"), overwrite=TRUE)
-  file.copy(paste0(workingpath,"/extdata/Bass_spatial_data//Spatial_dates.csv"),paste0(userpath,"/Bass_spatial/Inputs/Spatial forcings"), overwrite=TRUE)
+  file.copy(paste0(workingpath,"/extdata/Mussel_spatial_data//Spatial_dates.csv"),paste0(userpath,"/Bass_spatial/Inputs/Spatial forcings"), overwrite=TRUE)
 
   cat("Folder skeleton for Bass spatialized model created at:\n")
   cat(userpath)
